@@ -95,10 +95,9 @@ export function Welcome() {
         </Text>
       </Title>
       <Text c="dimmed" ta="center" size="lg" maw={650} mx="auto" mt="xl">
-        Trend Wars is a multiplayer word game inspired by Google Trends, played with 2 to 5 players.
-        You will be given a word each round. Come up with a trendy phrase to pair with it. Based on
-        Trends data, your phrase will be scored from 0 to 100. The player with the most points after
-        5 round wins.
+        Trend Wars is a 2 to 5 player word game inspired by Google Trends. You will be given a word each round. Come up with a trendy phrase to pair with it. Based on
+        Trends data, your phrase will be scored from 0 to 100. After
+        5 rounds, the player with the most points wins.
       </Text>
 
       <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" mt="xl">

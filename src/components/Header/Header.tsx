@@ -1,4 +1,4 @@
-import { Group, Text } from '@mantine/core';
+import { Anchor, Group, Text } from '@mantine/core';
 import { DarkModeToggle } from '../DarkModeToggle/DarkModeToggle';
 import classes from './Header.module.css';
 
@@ -7,15 +7,17 @@ export function Header() {
     <header className={classes.header}>
       <div className={classes.inner}>
         <Group>
-          <Text
+          <Anchor
+            href="localhost:5173/"
+            target="_blank"
+            underline="never"
             inherit
             variant="gradient"
-            component="span"
             gradient={{ from: 'pink', to: 'yellow' }}
             className={classes.logo}
           >
             Trend Wars
-          </Text>
+          </Anchor>
         </Group>
 
         <Group>

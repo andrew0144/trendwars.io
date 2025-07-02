@@ -8,10 +8,8 @@ function Chat() {
       withBorder
       radius="md"
       bg="var(--mantine-color-body)"
-      maw={500}
       mx="auto"
-      mt="xl"
-      mah={300}
+      mah={400}
       className={classes.chat}
     >
       <Stack px={10}>

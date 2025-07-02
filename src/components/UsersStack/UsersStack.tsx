@@ -6,7 +6,9 @@ import {
   IconReportAnalytics,
   IconTrash,
 } from '@tabler/icons-react';
-import { ActionIcon, Avatar, Group, Menu, Table, Text } from '@mantine/core';
+import { ActionIcon, Group, Menu, Table, Text } from '@mantine/core';
+import classes from './UsersStack.module.css';
+import Avatar from 'boring-avatars';
 
 const data = [
   {
@@ -56,7 +58,7 @@ export function UsersStack() {
     <Table.Tr key={item.name}>
       <Table.Td>
         <Group gap="sm">
-          <Avatar size={40} src={item.avatar} radius={40} />
+            <Avatar size={40} name={item.name} variant="beam" className={classes.avatar} />
           <div>
             <Text fz="sm" fw={500}>
               {item.name}
@@ -75,7 +77,7 @@ export function UsersStack() {
   ));
 
   return (
-    <Table.ScrollContainer minWidth={800}>
+    <Table.ScrollContainer minWidth={0} maxHeight={400}>
       <Table verticalSpacing="md">
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>

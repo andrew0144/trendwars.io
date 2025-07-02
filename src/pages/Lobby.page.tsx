@@ -1,8 +1,12 @@
-// World's simplest error page. Feel free to spice this up.
+import { Header } from '@/components/Header/Header';
+import classes from './Pages.module.css';
+import WaitingLobby from '@/components/WaitingLobby/WaitingLobby';
+
 function LobbyPage() {
   return (
-    <div className="LobbyPage">
-      This is the lobby page!
+    <div className={classes.appContainer}>
+      <Header />
+      <WaitingLobby />
     </div>
   );
 }
