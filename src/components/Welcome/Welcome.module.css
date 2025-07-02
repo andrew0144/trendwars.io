@@ -8,3 +8,7 @@
     font-size: rem(50px);
   }
 }
+
+.input {
+  flex-grow: 1;
+}

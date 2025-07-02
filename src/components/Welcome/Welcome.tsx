@@ -1,23 +1,49 @@
-import { Anchor, Text, Title } from '@mantine/core';
+import { Anchor, Card, Container, Group, Text, TextInput, Title } from '@mantine/core';
 import classes from './Welcome.module.css';
 
+import { useState } from 'react';
+import Avatar from 'boring-avatars';
+
 export function Welcome() {
+
+  const [player, setPlayer] = useState({
+		bestWord: "",
+		id: 0,
+		rank: -1,
+		ready: false,
+		score: 0,
+		username: "",
+		wordSubmittedThisTurn: false,
+	});
+
+
   return (
-    <>
-      <Title className={classes.title} ta="center" mt={100}>
+    <Container fluid>
+      <Title className={classes.title} ta="center" mt={20}>
         Welcome to{' '}
         <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
-          Mantine
+          Trend Wars
         </Text>
       </Title>
-      <Text c="dimmed" ta="center" size="lg" maw={580} mx="auto" mt="xl">
-        This starter Vite project includes a minimal setup, if you want to learn more on Mantine +
-        Vite integration follow{' '}
-        <Anchor href="https://mantine.dev/guides/vite/" size="lg">
-          this guide
-        </Anchor>
-        . To get started edit pages/Home.page.tsx file.
+      <Text c="dimmed" ta="center" size="lg" maw={650} mx="auto" mt="xl">
+        Trend Wars is a multiplayer word game inspired by Google Trends played with 2 to 5 players. You will be given a word each round. Come up with a trendy phrase to pair with it. Based on Trends data, your phrase will be scored from 0 to 100. The player with the most points after 5 round wins.
       </Text>
-    </>
+
+      <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" mt="xl">
+      <Group justify="center">
+        <Avatar
+          size={80}
+          name={player.username}
+          variant="beam"
+        />
+        <TextInput
+          placeholder="Enter your username"
+          value={player.username}
+          onChange={(event) => setPlayer({ ...player, username: event.currentTarget.value })}
+          className={classes.input}
+        />
+      </Group>
+      </Card>
+    </Container>
   );
 }
