@@ -11,4 +11,9 @@
 
 .input {
   flex-grow: 1;
+  max-width: 336px;
+}
+
+.avatar {
+  margin: 0 auto;
 }

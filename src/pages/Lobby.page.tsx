@@ -2,7 +2,7 @@
 function LobbyPage() {
   return (
     <div className="LobbyPage">
-      The lobby you tried reaching does not exist. Maybe the game already ended?
+      This is the lobby page!
     </div>
   );
 }
