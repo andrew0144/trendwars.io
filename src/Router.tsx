@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { HomePage } from './pages/Home.page';
 import { ErrorPage } from './pages/Error.page';
+import { HomePage } from './pages/Home.page';
 import LobbyPage from './pages/Lobby.page';
 
 const router = createBrowserRouter([
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
   {
     path: 'lobby/:id',
     element: <LobbyPage />,
-  }
+  },
 ]);
 
 export function Router() {
