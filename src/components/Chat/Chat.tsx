@@ -1,4 +1,4 @@
-import { Card, Stack } from '@mantine/core';
+import { Card, ScrollArea, Stack } from '@mantine/core';
 import { InputWithButton } from '../InputWithButton/InputWithButton';
 import classes from './Chat.module.css';
 
@@ -10,9 +10,17 @@ function Chat() {
       bg="var(--mantine-color-body)"
       mx="auto"
       mah={400}
-      className={classes.chat}
     >
+        <ScrollArea h={400} scrollbars="y" offsetScrollbars={true}>
       <Stack px={10}>
+        <div>Foobar: "This is an example message.an example message.an example message.an example message.an example message."</div>
+        <div>Foobar: "This is an example message."</div>
+        <div>Foobar: "This is an example message."</div>
+        <div>Foobar: "This is an example message."</div>
+        <div>Foobar: "This is an example message."</div>
+        <div>Foobar: "This is an example message."</div>
+        <div>Foobar: "This is an example message."</div>
+        <div>Foobar: "This is an example message."</div>
         <div>Foobar: "This is an example message."</div>
         <div>Foobar: "This is an example message."</div>
         <div>Foobar: "This is an example message."</div>
@@ -24,7 +32,9 @@ function Chat() {
         <div>Foobar: "This is an example message."</div>
         <div>Foobar: "This is an example message."</div>
       </Stack>
+              </ScrollArea>
       <InputWithButton mt={30} className={classes.chatInput} />
+
     </Card>
   );
 }
