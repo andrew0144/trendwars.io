@@ -1,7 +1,12 @@
+import { Header } from '@/components/Header/Header';
+import classes from './Pages.module.css';
+import { NothingFoundBackground } from '@/components/Error/NothingFoundBackground';
+
 export function ErrorPage() {
   return (
-    <div className="ErrorPage">
-      The lobby you tried reaching does not exist. Maybe the game already ended?
+    <div className={classes.appContainer}>
+      <Header />
+	  <NothingFoundBackground />
     </div>
   );
 }

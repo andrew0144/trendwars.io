@@ -122,6 +122,7 @@ export function Welcome() {
           />
         </Group>
         <Button
+          mt={10}
           variant="gradient"
           onClick={handleGoClick}
           className={classes.goBtn}
