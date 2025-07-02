@@ -14,6 +14,7 @@ export function Welcome() {
   const [lobbyID, setLobbyID] = useState('');
   const [yourId, setYourId] = useState('');
   const [loaded, setLoaded] = useState(false);
+  const [usernameError, setUsernameError] = useState(false);
   const [player, setPlayer] = useState({
     bestWord: '',
     id: 0,
@@ -40,7 +41,7 @@ export function Welcome() {
       sendUsernameMessage(player.username);
     }
     else {
-      alert('Please enter a username before joining a lobby.');
+      setUsernameError(true);
       return;
     }
     if (lobbyID.trim() !== '') {
@@ -49,6 +50,12 @@ export function Welcome() {
     else {
       sendCreateLobbyMessage();
     }
+  }
+
+  function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const newUsername = event.currentTarget.value;
+    setPlayer({ ...player, username: newUsername });
+    setUsernameError(newUsername.trim() === '');
   }
 
   useEffect(() => {
@@ -100,7 +107,8 @@ export function Welcome() {
           <TextInput
             placeholder="Enter your username"
             value={player.username}
-            onChange={(event) => setPlayer({ ...player, username: event.currentTarget.value })}
+            error={usernameError ? 'Username cannot be empty' : ''}
+            onChange={handleUsernameChange}
             className={classes.input}
           />
         </Group>
@@ -116,7 +124,7 @@ export function Welcome() {
         <Button
           variant="gradient"
           onClick={handleGoClick}
-          className={classes.startButton}
+          className={classes.goBtn}
         >
           Go
         </Button>
