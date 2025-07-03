@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { IconInfoCircle } from '@tabler/icons-react';
 import Avatar from 'boring-avatars';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -23,7 +24,6 @@ import {
 import { Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
 import classes from './Welcome.module.css';
-import { IconInfoCircle } from '@tabler/icons-react';
 
 export function Welcome() {
   const currentPlayerIdRef = useRef('');
@@ -186,10 +186,16 @@ export function Welcome() {
         </Button>
       </Card>
 
-      <Transition mounted={showAlert} transition="slide-down" duration={150} timingFunction="ease-out" keepMounted>
+      <Transition
+        mounted={showAlert}
+        transition="slide-down"
+        duration={150}
+        timingFunction="ease-out"
+        keepMounted
+      >
         {(styles) => (
           <Alert
-          withCloseButton
+            withCloseButton
             className={classes.alert}
             style={styles}
             icon={<IconInfoCircle size={16} />}
@@ -197,8 +203,8 @@ export function Welcome() {
             color="red"
             onClose={() => setShowAlert(false)}
           >
-                    The lobby you are trying to join is either full or does not exist. Create your own lobby instead!
-
+            The lobby you are trying to join is either full or does not exist. Create your own lobby
+            instead!
           </Alert>
         )}
       </Transition>
