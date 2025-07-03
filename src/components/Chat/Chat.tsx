@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import { IconMessageSearch } from '@tabler/icons-react';
+import Avatar from 'boring-avatars';
 import { Card, Group, ScrollArea, Stack } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
+import { AvatarVariants, Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
 import { InputWithButton } from '../InputWithButton/InputWithButton';
 import classes from './Chat.module.css';
-import Avatar from 'boring-avatars';
-import { AvatarVariants, Player } from '@/common/Player';
 
 type ChatMessage = {
   username: string;
   variant: AvatarVariants;
   text: string;
-}
+};
 
 function Chat() {
   const [state, setState] = useState<{
