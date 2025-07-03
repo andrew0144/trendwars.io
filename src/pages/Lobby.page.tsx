@@ -1,7 +1,7 @@
+import { useLocation } from 'react-router-dom';
 import { Header } from '@/components/Header/Header';
 import WaitingLobby from '@/components/WaitingLobby/WaitingLobby';
 import classes from './Pages.module.css';
-import { useLocation } from 'react-router-dom';
 
 function LobbyPage() {
   const location = useLocation();

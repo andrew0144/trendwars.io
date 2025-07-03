@@ -14,7 +14,8 @@ export function PlayersStack({ players, yourId }: { players: Player[]; yourId: s
           <Avatar size={40} name={player.username} variant="beam" className={classes.avatar} />
           <div>
             <Text fz="sm" fw={500}>
-              {player.username}{player.id === yourId && ' (You)'}
+              {player.username}
+              {player.id === yourId && ' (You)'}
             </Text>
           </div>
         </Group>

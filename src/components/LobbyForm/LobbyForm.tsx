@@ -1,8 +1,8 @@
+import { use, useEffect, useState } from 'react';
+import { Button, Group, NumberInput, SegmentedControl, Stack, Text, Tooltip } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import { sendLobbySettings, sendReadyMessage } from '@/common/Message/MessageUtils';
 import { ws } from '@/common/socketConfig';
-import { Button, Group, NumberInput, SegmentedControl, Stack, Text, Tooltip } from '@mantine/core';
-import { use, useEffect, useState } from 'react';
 
 function LobbyForm() {
   const [settings, setSettings] = useState({
@@ -34,7 +34,8 @@ function LobbyForm() {
         setSettings({
           rounds: updatedSettings.maxTurns,
           turnTimer: updatedSettings.timeLimit === -1 ? 'Off' : String(updatedSettings.timeLimit),
-          wordGeneration: updatedSettings.wordGeneration === 'chosen' ? "Player's choice" : 'Random',
+          wordGeneration:
+            updatedSettings.wordGeneration === 'chosen' ? "Player's choice" : 'Random',
         });
       }
     });
@@ -74,7 +75,11 @@ function LobbyForm() {
         </Button>
       </Group>
       <Group grow justify="center" align="stretch">
-        <Button variant="gradient" gradient={{ to: 'cyan', from: 'violet' }} onClick={sendReadyMessage}>
+        <Button
+          variant="gradient"
+          gradient={{ to: 'cyan', from: 'violet' }}
+          onClick={sendReadyMessage}
+        >
           Ready Up
         </Button>
         <Button variant="gradient" gradient={{ from: 'pink', to: 'yellow' }} disabled={true}>
