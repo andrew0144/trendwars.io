@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Avatar from 'boring-avatars';
 import { useNavigate } from 'react-router-dom';
 import {
+  Alert,
   Button,
   Card,
   Container,
@@ -10,6 +11,7 @@ import {
   Text,
   TextInput,
   Title,
+  Transition,
 } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
@@ -21,6 +23,7 @@ import {
 import { Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
 import classes from './Welcome.module.css';
+import { IconInfoCircle } from '@tabler/icons-react';
 
 export function Welcome() {
   const currentPlayerIdRef = useRef('');
@@ -29,6 +32,8 @@ export function Welcome() {
   const [yourId, setYourId] = useState('');
   const [loaded, setLoaded] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
+  const [lobbyCodeError, setLobbyCodeError] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const [player, setPlayer] = useState<Player>({
     bestWord: '',
     id: 0,
@@ -75,6 +80,17 @@ export function Welcome() {
     setUsernameError(newUsername.trim() === '');
   }
 
+  function handleLobbyCodeChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const newLobbyID = event.currentTarget.value;
+    setLobbyID(newLobbyID);
+    setLobbyCodeError(false);
+  }
+
+  function handleLobbyError() {
+    setShowAlert(true);
+    setLobbyCodeError(true);
+  }
+
   useEffect(() => {
     const msg = new Message(MessageType.URL, { data: window.location.href });
     ws.emit('message', msg.toJSON());
@@ -96,6 +112,12 @@ export function Welcome() {
           break;
         case 'LOBBY_JOINED':
           rerouteToLobby(message.msgData, currentPlayerIdRef.current);
+          break;
+        case 'LOBBY_FULL':
+          handleLobbyError();
+          break;
+        case 'LOBBY_DOESNT_EXIST':
+          handleLobbyError();
           break;
         default:
           break;
@@ -133,6 +155,7 @@ export function Welcome() {
             error={usernameError ? 'Username cannot be empty' : ''}
             onChange={handleUsernameChange}
             className={classes.input}
+            maxLength={21}
           />
         </Group>
         <Group justify="space-between" mb={20}>
@@ -152,14 +175,33 @@ export function Welcome() {
             placeholder="Enter the lobby code"
             value={lobbyID}
             variant="filled"
-            onChange={(event) => setLobbyID(event.currentTarget.value)}
+            onChange={handleLobbyCodeChange}
             className={classes.input}
+            error={lobbyCodeError ? 'Invalid lobby code' : ''}
+            maxLength={6}
           />
         </Group>
         <Button mt={10} variant="gradient" onClick={handleGoClick} className={classes.goBtn}>
           Go
         </Button>
       </Card>
+
+      <Transition mounted={showAlert} transition="slide-down" duration={150} timingFunction="ease-out" keepMounted>
+        {(styles) => (
+          <Alert
+          withCloseButton
+            className={classes.alert}
+            style={styles}
+            icon={<IconInfoCircle size={16} />}
+            title="Cannot Join Lobby"
+            color="red"
+            onClose={() => setShowAlert(false)}
+          >
+                    The lobby you are trying to join is either full or does not exist. Create your own lobby instead!
+
+          </Alert>
+        )}
+      </Transition>
     </Container>
   );
 }
