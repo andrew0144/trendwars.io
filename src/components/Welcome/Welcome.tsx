@@ -4,10 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Card, Container, Group, Text, TextInput, Title } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
+import {
+  sendCreateLobbyMessage,
+  sendJoinLobbyMessage,
+  sendUsernameMessage,
+} from '@/common/Message/MessageUtils';
+import { Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
 import classes from './Welcome.module.css';
-import { sendCreateLobbyMessage, sendJoinLobbyMessage, sendUsernameMessage } from '@/common/Message/MessageUtils';
-import { Player } from '@/common/Player';
 
 export function Welcome() {
   const currentPlayerIdRef = useRef('');
@@ -26,29 +30,30 @@ export function Welcome() {
     wordSubmittedThisTurn: false,
   });
 
-  function rerouteToLobby(data: { lobbyID: any; lobby_state: { players: Player[]; }; }, playerId = currentPlayerIdRef.current || yourId) {
-		navigate(`/lobby/${data.lobbyID}`, {
-			replace: true,
-			state: {
-				players: data.lobby_state.players,
-				yourId: playerId,
-				lobbyID: data.lobbyID,
-			},
-		});
-	}
+  function rerouteToLobby(
+    data: { lobbyID: any; lobby_state: { players: Player[] } },
+    playerId = currentPlayerIdRef.current || yourId
+  ) {
+    navigate(`/lobby/${data.lobbyID}`, {
+      replace: true,
+      state: {
+        players: data.lobby_state.players,
+        yourId: playerId,
+        lobbyID: data.lobbyID,
+      },
+    });
+  }
 
   function handleGoClick() {
     if (player.username.trim() !== '') {
       sendUsernameMessage(player.username);
-    }
-    else {
+    } else {
       setUsernameError(true);
       return;
     }
     if (lobbyID.trim() !== '') {
       sendJoinLobbyMessage(lobbyID);
-    }
-    else {
+    } else {
       sendCreateLobbyMessage();
     }
   }
@@ -96,9 +101,9 @@ export function Welcome() {
         </Text>
       </Title>
       <Text c="dimmed" ta="center" size="lg" maw={650} mx="auto" mt="xl">
-        Trend Wars is a 2 to 5 player word game inspired by Google Trends. You will be given a word each round. Come up with a trendy phrase to pair with it. Based on
-        Trends data, your phrase will be scored from 0 to 100. After
-        5 rounds, the player with the most points wins.
+        Trend Wars is a 2 to 5 player word game inspired by Google Trends. You will be given a word
+        each round. Come up with a trendy phrase to pair with it. Based on Trends data, your phrase
+        will be scored from 0 to 100. After 5 rounds, the player with the most points wins.
       </Text>
 
       <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" mt="xl">
@@ -121,12 +126,7 @@ export function Welcome() {
             className={classes.input}
           />
         </Group>
-        <Button
-          mt={10}
-          variant="gradient"
-          onClick={handleGoClick}
-          className={classes.goBtn}
-        >
+        <Button mt={10} variant="gradient" onClick={handleGoClick} className={classes.goBtn}>
           Go
         </Button>
       </Card>

@@ -1,13 +1,4 @@
-import {
-  Button,
-  Grid,
-  Group,
-  NumberInput,
-  SegmentedControl,
-  Stack,
-  Switch,
-  Text,
-} from '@mantine/core';
+import { Button, Group, NumberInput, SegmentedControl, Stack, Text } from '@mantine/core';
 
 function LobbyForm() {
   return (

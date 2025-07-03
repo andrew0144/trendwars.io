@@ -1,6 +1,6 @@
 import { Header } from '@/components/Header/Header';
-import classes from './Pages.module.css';
 import WaitingLobby from '@/components/WaitingLobby/WaitingLobby';
+import classes from './Pages.module.css';
 
 function LobbyPage() {
   return (

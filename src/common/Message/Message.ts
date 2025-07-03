@@ -1,24 +1,24 @@
 class Message {
-	msgType: string;
-	msgData: any;
+  msgType: string;
+  msgData: any;
 
-	constructor(msgType: string, msgData: any) {
-		this.msgType = msgType;
-		this.msgData = msgData;
-	}
+  constructor(msgType: string, msgData: any) {
+    this.msgType = msgType;
+    this.msgData = msgData;
+  }
 
-	toJSON() {
-		let obj = {
-			msgType: this.msgType,
-			msgData: this.msgData,
-		};
-		return JSON.stringify(obj);
-	}
+  toJSON() {
+    let obj = {
+      msgType: this.msgType,
+      msgData: this.msgData,
+    };
+    return JSON.stringify(obj);
+  }
 
-	static fromJSON(json: string) {
-		var obj = JSON.parse(json);
-		return new Message(obj.msgType, obj.msgData);
-	}
+  static fromJSON(json: string) {
+    var obj = JSON.parse(json);
+    return new Message(obj.msgType, obj.msgData);
+  }
 }
 
 export default Message;
