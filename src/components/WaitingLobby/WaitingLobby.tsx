@@ -2,11 +2,96 @@ import { Card, Container, Group, Text, Title } from '@mantine/core';
 import ButtonCopy from '../ButtonCopy/ButtonCopy';
 import Chat from '../Chat/Chat';
 import LobbyForm from '../LobbyForm/LobbyForm';
-import { UsersStack } from '../UsersStack/UsersStack';
+import { PlayersStack } from '../PlayersStack/PlayersStack';
 import classes from './WaitingLobby.module.css';
+import { useEffect, useState } from 'react';
+import { ws } from '@/common/socketConfig';
+import Message from '@/common/Message/Message';
+import MessageType from '@/common/Message/MessageType';
+import { Player } from '@/common/Player';
 
-function WaitingLobby() {
+type WaitingLobbyState = {
+  players: Player[];
+  hasGameStarted: boolean;
+  lobbyDoesntExist: boolean;
+  playerListShouldShow: boolean;
+  firstStartingWord: string;
+  results: string;
+  round: number;
+  messages: string[];
+  currentMessage: string;
+};
+
+function WaitingLobby({ players }: { players: Player[] }) {
+  const [state, setState] = useState<WaitingLobbyState>({
+	players: players || [],
+	hasGameStarted: false,
+	lobbyDoesntExist: false,
+	playerListShouldShow: true,
+	firstStartingWord: "N/A",
+	results: "",
+	round: 1,
+	messages: [],
+	currentMessage: "",
+  });
   const lobbyId = window.location.pathname.split('/').pop() || '';
+
+   useEffect(() => {
+      const msg = new Message(MessageType.URL, { data: window.location.href });
+      ws.emit('message', msg.toJSON());
+
+      ws.on('message', (json: string) => {
+			let message = Message.fromJSON(json);
+			console.log(message);
+
+			switch (message.msgType) {
+				case "CHAT":
+					if (message.msgData.text === "") {
+						return; // Ignore empty messages
+					}
+					setState((prevState) => ({
+						...prevState,
+						messages: [...prevState.messages, message.msgData.text],
+					}));
+					break;
+				case "GAME_STARTED":
+					setState((prevState) => ({
+						...prevState,
+						hasGameStarted: true,
+						firstStartingWord: message.msgData["firstStartingWord"],
+					}));
+					break;
+				case "LOBBY_DOESNT_EXIST":
+					setState((prevState) => ({
+						...prevState,
+						lobbyDoesntExist: true,
+					}));
+					break;
+				case "RESULTS":
+					setState((prevState) => ({
+						...prevState,
+						results: message.msgData.scores,
+					}));
+					break;
+				case "LOBBY_STATE":
+					setState((prevState) => ({
+						...prevState,
+						round: message.msgData.turnNumber,
+                        players: message.msgData.players,
+					}));
+					break;
+                case "PLAYER_STATE":
+                    console.log('on player state', message.msgData);
+                    setState((prevState) => ({
+                        ...prevState,
+                        players: message.msgData.players,
+                    }));
+                break;
+				default:
+					break;
+			}
+      });
+    }, []);
 
   return (
     <Container fluid>
@@ -31,7 +116,7 @@ function WaitingLobby() {
       </Group>
       <Group grow justify="center" align="stretch" mt={'md'} mb={'sm'} gap={'xs'}>
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={400}>
-          <UsersStack />
+          <PlayersStack players={state.players} />
         </Card>
         <Chat />
       </Group>

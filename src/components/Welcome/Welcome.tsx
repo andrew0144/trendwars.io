@@ -7,6 +7,7 @@ import MessageType from '@/common/Message/MessageType';
 import { ws } from '@/common/socketConfig';
 import classes from './Welcome.module.css';
 import { sendCreateLobbyMessage, sendJoinLobbyMessage, sendUsernameMessage } from '@/common/Message/MessageUtils';
+import { Player } from '@/common/Player';
 
 export function Welcome() {
   const currentPlayerIdRef = useRef('');
@@ -25,7 +26,7 @@ export function Welcome() {
     wordSubmittedThisTurn: false,
   });
 
-  function rerouteToLobby(data: { lobbyID: any; lobby_state: { players: any; }; }, playerId = currentPlayerIdRef.current || yourId) {
+  function rerouteToLobby(data: { lobbyID: any; lobby_state: { players: Player[]; }; }, playerId = currentPlayerIdRef.current || yourId) {
 		navigate(`/lobby/${data.lobbyID}`, {
 			replace: true,
 			state: {

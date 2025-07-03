@@ -8,8 +8,7 @@ export function Header() {
       <div className={classes.inner}>
         <Group>
           <Anchor
-            href="localhost:5173/"
-            target="_blank"
+            href="http://localhost:5173"
             underline="never"
             inherit
             variant="gradient"
