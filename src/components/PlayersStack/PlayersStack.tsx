@@ -12,7 +12,7 @@ export function PlayersStack({ players, yourId }: { players: Player[]; yourId: n
           <Stack justify="center" align="center" gap={0}>
             {player.host && <IconCrown size={16} stroke={1.5} />}
             <Avatar
-              size={40}
+              size={37}
               name={player.username}
               variant={player.variant ?? 'beam'}
               className={classes.avatar}

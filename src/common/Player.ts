@@ -6,6 +6,15 @@ export type Player = {
   rank: number;
   wordSubmittedThisTurn: boolean;
   bestWord: string;
-  variant?: 'marble' | 'beam' | 'pixel' | 'sunset' | 'ring' | 'bauhaus';
+  variant?: AvatarVariants;
   host: boolean;
 };
+
+export enum AvatarVariants {
+  MARBLE = 'marble',
+  BEAM = 'beam',
+  PIXEL = 'pixel',
+  SUNSET = 'sunset',
+  RING = 'ring',
+  BAUHAUS = 'bauhaus',
+}

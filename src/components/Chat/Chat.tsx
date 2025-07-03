@@ -1,15 +1,32 @@
 import { useEffect, useState } from 'react';
 import { IconMessageSearch } from '@tabler/icons-react';
-import { Card, ScrollArea, Stack } from '@mantine/core';
+import { Card, Group, ScrollArea, Stack } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
 import { ws } from '@/common/socketConfig';
 import { InputWithButton } from '../InputWithButton/InputWithButton';
 import classes from './Chat.module.css';
+import Avatar from 'boring-avatars';
+import { AvatarVariants, Player } from '@/common/Player';
+
+type ChatMessage = {
+  username: string;
+  variant: AvatarVariants;
+  text: string;
+}
 
 function Chat() {
-  const [state, setState] = useState({
-    messages: ['Welcome to the chat! Type your message below.'],
+  const [state, setState] = useState<{
+    messages: ChatMessage[];
+    currentMessage: string;
+  }>({
+    messages: [
+      {
+        username: 'System',
+        variant: AvatarVariants.SUNSET,
+        text: 'Welcome to the chat! Type your message below.',
+      },
+    ],
     currentMessage: '',
   });
 
@@ -25,7 +42,7 @@ function Chat() {
           }
           setState((prevState) => ({
             ...prevState,
-            messages: [...prevState.messages, message.msgData.text],
+            messages: [...prevState.messages, message.msgData as ChatMessage],
           }));
           break;
         default:
@@ -39,7 +56,17 @@ function Chat() {
       <ScrollArea h={400} scrollbars="y" offsetScrollbars={true}>
         <Stack px={10}>
           {state.messages.map((msg, index) => (
-            <div key={index}>{msg}</div>
+            <Group gap={5} key={index}>
+              {msg.username !== 'System' && (
+                <Avatar
+                  size={20}
+                  name={msg.username}
+                  variant={msg.variant}
+                  className={classes.avatar}
+                />
+              )}
+              {msg.username !== 'System' ? `${msg.username}: ${msg.text}` : `${msg.text}`}
+            </Group>
           ))}
         </Stack>
       </ScrollArea>

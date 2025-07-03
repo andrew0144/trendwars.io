@@ -21,7 +21,7 @@ import {
   sendJoinLobbyMessage,
   sendPlayerUpdateMessage,
 } from '@/common/Message/MessageUtils';
-import { Player } from '@/common/Player';
+import { AvatarVariants, Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
 import classes from './Welcome.module.css';
 
@@ -42,7 +42,7 @@ export function Welcome() {
     score: 0,
     username: '',
     wordSubmittedThisTurn: false,
-    variant: 'beam',
+    variant: AvatarVariants.BEAM,
     host: false,
   });
 
