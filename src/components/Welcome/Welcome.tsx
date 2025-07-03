@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import Avatar from 'boring-avatars';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, Container, Group, Text, TextInput, Title } from '@mantine/core';
+import { Button, Card, Container, Group, SegmentedControl, Text, TextInput, Title } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
 import {
   sendCreateLobbyMessage,
   sendJoinLobbyMessage,
-  sendUsernameMessage,
+  sendPlayerUpdateMessage,
 } from '@/common/Message/MessageUtils';
 import { Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
@@ -20,7 +20,7 @@ export function Welcome() {
   const [yourId, setYourId] = useState('');
   const [loaded, setLoaded] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
-  const [player, setPlayer] = useState({
+  const [player, setPlayer] = useState<Player>({
     bestWord: '',
     id: 0,
     rank: -1,
@@ -28,6 +28,7 @@ export function Welcome() {
     score: 0,
     username: '',
     wordSubmittedThisTurn: false,
+    variant: 'beam',
   });
 
   function rerouteToLobby(
@@ -46,7 +47,7 @@ export function Welcome() {
 
   function handleGoClick() {
     if (player.username.trim() !== '') {
-      sendUsernameMessage(player.username);
+      sendPlayerUpdateMessage(player.username, player.variant);
     } else {
       setUsernameError(true);
       return;
@@ -81,7 +82,7 @@ export function Welcome() {
           break;
         case 'PLAYER_STATE':
           setLoaded(true);
-          setPlayer(message.msgData);
+          setPlayer((prev) => ({ ...prev, ...message.msgData }));
           break;
         case 'LOBBY_JOINED':
           rerouteToLobby(message.msgData, currentPlayerIdRef.current);
@@ -108,8 +109,10 @@ export function Welcome() {
 
       <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" mt="xl">
         <Group justify="space-between" mb={20}>
-          <Avatar size={80} name={player.username} variant="beam" className={classes.avatar} />
+          <Avatar size={100} name={player.username} variant={player.variant} className={classes.avatar} />
           <TextInput
+            size="md"
+            variant='filled'
             placeholder="Enter your username"
             value={player.username}
             error={usernameError ? 'Username cannot be empty' : ''}
@@ -118,10 +121,22 @@ export function Welcome() {
           />
         </Group>
         <Group justify="space-between" mb={20}>
+          <Text c="dimmed">Change your look</Text>
+          <SegmentedControl
+          size="md"
+            className={classes.input}
+            data={['beam', 'marble', 'ring', 'bauhaus']}
+            value={player.variant}
+            onChange={(value) => setPlayer((prev) => ({ ...prev, variant: value } as Player))}
+          />
+        </Group>
+        <Group justify="space-between" mb={20}>
           <Text c="dimmed">Joining a game?</Text>
           <TextInput
+          size="md"
             placeholder="Enter the lobby code"
             value={lobbyID}
+            variant='filled'
             onChange={(event) => setLobbyID(event.currentTarget.value)}
             className={classes.input}
           />

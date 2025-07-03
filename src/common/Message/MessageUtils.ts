@@ -14,8 +14,8 @@ export function sendJoinLobbyMessage(lobbyID: string) {
   ws.emit('message', msg.toJSON());
 }
 
-export function sendUsernameMessage(username: string) {
-  const msg = new Message(MessageType.USERNAME, { data: username });
+export function sendPlayerUpdateMessage(username: string, variant = 'beam') {
+  const msg = new Message(MessageType.PLAYER_UPDATE, { data: { username, variant } });
   ws.emit('message', msg.toJSON());
 }
 
