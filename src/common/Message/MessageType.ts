@@ -13,6 +13,10 @@ let MessageType = {
   TIME_OVER: 'TIME_OVER',
   RANDOMIZE_BIGHEAD: 'RANDOMIZE_BIGHEAD',
   CHAT: 'CHAT',
+  LOBBY_SETTINGS: 'LOBBY_SETTINGS',
+  LOBBY_SETTINGS_UPDATED: 'LOBBY_SETTINGS_UPDATED',
+  LOBBY_STATE: 'LOBBY_STATE',
+  PLAYER_STATE: 'PLAYER_STATE',
   //insert more types as needed, make sure one exists on backend too
 };
 

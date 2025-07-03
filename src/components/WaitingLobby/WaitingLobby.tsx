@@ -22,7 +22,7 @@ type WaitingLobbyState = {
   currentMessage: string;
 };
 
-function WaitingLobby({ players }: { players: Player[] }) {
+function WaitingLobby({ players, yourId }: { players: Player[]; yourId: string }) {
   const [state, setState] = useState<WaitingLobbyState>({
     players: players || [],
     hasGameStarted: false,
@@ -116,7 +116,7 @@ function WaitingLobby({ players }: { players: Player[] }) {
       </Group>
       <Group grow justify="center" align="stretch" mt={'md'} mb={'sm'} gap={'xs'}>
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={400}>
-          <PlayersStack players={state.players} />
+          <PlayersStack players={state.players} yourId={yourId} />
         </Card>
         <Chat />
       </Group>

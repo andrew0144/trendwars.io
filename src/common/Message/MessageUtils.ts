@@ -18,3 +18,18 @@ export function sendUsernameMessage(username: string) {
   const msg = new Message(MessageType.USERNAME, { data: username });
   ws.emit('message', msg.toJSON());
 }
+
+export function sendReadyMessage() {
+  const msg = new Message(MessageType.READY, { data: 'ready' });
+  ws.emit('message', msg.toJSON());
+}
+
+export function sendStartGameMessage() {
+  const msg = new Message(MessageType.START_GAME, { data: 'start' });
+  ws.emit('message', msg.toJSON());
+}
+
+export function sendLobbySettings(settings: any) {
+  const msg = new Message(MessageType.LOBBY_SETTINGS, { data: settings });
+  ws.emit('message', msg.toJSON());
+}
