@@ -96,8 +96,8 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
   return (
     <Container fluid>
       <Group grow justify="center" align="stretch">
-        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="md" mah={450}>
-          <Title ta="center" size="xl" maw={650} mx="auto" my="sm" className={classes.title}>
+        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="xs" mah={450}>
+          <Title ta="center" size="xl" maw={650} mx="auto" my="0" className={classes.title}>
             <Group justify="center" align="center" mb={10}>
               <span>Lobby ID: </span>
               <Text
@@ -111,14 +111,19 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               <ButtonCopy lobbyId={lobbyId} />
             </Group>
           </Title>
+          <Text ta="center" inherit component="span">
+            Waiting for players to ready up...
+          </Text>
           <LobbyForm players={state.players} yourId={yourId} />
         </Card>
       </Group>
-      <Group grow justify="center" align="stretch" mt={'md'} mb={'sm'} gap={'xs'}>
-        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={400}>
+      <Group grow justify="center" align="stretch" mt={'xs'} mb={'xs'} gap={'xs'}>
+        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={385}>
           <PlayersStack players={state.players} yourId={yourId} />
         </Card>
-        <Chat />
+        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={385}>
+          <Chat />
+        </Card>
       </Group>
     </Container>
   );

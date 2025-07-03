@@ -5,19 +5,18 @@ import { Player } from '@/common/Player';
 import classes from './PlayersStack.module.css';
 
 export function PlayersStack({ players, yourId }: { players: Player[]; yourId: number }) {
-
   const rows = players.map((player) => (
     <Table.Tr key={player.id}>
       <Table.Td>
         <Group gap="sm">
           <Stack justify="center" align="center" gap={0}>
-          {player.host && <IconCrown size={16} stroke={1.5} />}
-          <Avatar
-            size={40}
-            name={player.username}
-            variant={player.variant ?? 'beam'}
-            className={classes.avatar}
-          />
+            {player.host && <IconCrown size={16} stroke={1.5} />}
+            <Avatar
+              size={40}
+              name={player.username}
+              variant={player.variant ?? 'beam'}
+              className={classes.avatar}
+            />
           </Stack>
           <div>
             <Text fz="sm" fw={500}>
@@ -40,7 +39,7 @@ export function PlayersStack({ players, yourId }: { players: Player[]; yourId: n
   ));
 
   return (
-    <ScrollArea h={400} scrollbars="y" offsetScrollbars={true}>
+    <ScrollArea scrollbars="y" offsetScrollbars={true}>
       <Table verticalSpacing="md">
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>

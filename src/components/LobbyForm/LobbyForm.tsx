@@ -1,9 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Button, Group, NumberInput, SegmentedControl, Stack, Text } from '@mantine/core';
+import {
+  Button,
+  Fieldset,
+  Group,
+  NumberInput,
+  SegmentedControl,
+  Stack,
+  Text,
+  Tooltip,
+} from '@mantine/core';
 import Message from '@/common/Message/Message';
 import { sendLobbySettings, sendReadyMessage } from '@/common/Message/MessageUtils';
-import { ws } from '@/common/socketConfig';
 import { Player } from '@/common/Player';
+import { ws } from '@/common/socketConfig';
 
 function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
   const [settings, setSettings] = useState({
@@ -26,6 +35,7 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
   };
 
   const isHost = players.some((p) => p.id === yourId && p.host);
+  const isReady = players.some((p) => p.id === yourId && p.ready);
   const canStartGame = isHost && players.length > 1 && players.every((p) => p.ready);
 
   useEffect(() => {
@@ -46,49 +56,73 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
   }, []);
 
   return (
-    <Stack maw={600} mx="auto" mt="xs" mb={'xs'} w={'100%'}>
-      <Group grow justify="center" align="stretch">
-        <Text>Number of Rounds</Text>
-        <NumberInput
-          placeholder="Enter a number between 1 and 25"
-          min={1}
-          max={25}
-          value={settings.rounds}
-          onChange={(value) => setSettings((prev) => ({ ...prev, rounds: Number(value) }))}
-        />
-      </Group>
-      <Group grow justify="center" align="stretch">
-        <Text>Turn Timer (seconds)</Text>
-        <SegmentedControl
-          data={['Off', '10', '30', '60']}
-          value={settings.turnTimer}
-          onChange={(value) => setSettings((prev) => ({ ...prev, turnTimer: value }))}
-        />
-      </Group>
-      <Group grow justify="center" align="stretch">
-        <Text>Word Generation</Text>
-        <SegmentedControl
-          data={['Random', "Player's choice"]}
-          value={settings.wordGeneration}
-          onChange={(value) => setSettings((prev) => ({ ...prev, wordGeneration: value }))}
-        />
-      </Group>
-      <Group grow justify="center" align="stretch">
-        <Button variant="light" color="green" onClick={handleConfirmSettings}>
-          Confirm Settings
-        </Button>
-      </Group>
+    <Stack maw={600} mx="auto" my={0} w={'100%'} gap={'sm'}>
+      <Tooltip.Floating
+        label="Only the host can change these settings"
+        disabled={isHost}
+        offset={15}
+      >
+        <Fieldset
+          legend="Lobby Settings"
+          disabled={!isHost}
+          w={'100%'}
+          style={isHost ? {} : { cursor: 'not-allowed' }}
+          p={'md'}
+        >
+          <Stack gap="md">
+            <Group grow justify="center" align="stretch">
+              <Text>Number of Rounds</Text>
+              <NumberInput
+                placeholder="Enter a number between 1 and 25"
+                min={1}
+                max={25}
+                value={settings.rounds}
+                onChange={(value) => setSettings((prev) => ({ ...prev, rounds: Number(value) }))}
+              />
+            </Group>
+            <Group grow justify="center" align="stretch">
+              <Text>Turn Timer (seconds)</Text>
+              <SegmentedControl
+                data={['Off', '10', '30', '60']}
+                value={settings.turnTimer}
+                onChange={(value) => setSettings((prev) => ({ ...prev, turnTimer: value }))}
+              />
+            </Group>
+            <Group grow justify="center" align="stretch">
+              <Text>Word Generation</Text>
+              <SegmentedControl
+                data={['Random', "Player's choice"]}
+                value={settings.wordGeneration}
+                onChange={(value) => setSettings((prev) => ({ ...prev, wordGeneration: value }))}
+              />
+            </Group>
+            {isHost && (
+              <Group grow justify="center" align="stretch">
+                <Button variant="light" color="green" onClick={handleConfirmSettings}>
+                  Confirm Settings
+                </Button>
+              </Group>
+            )}
+          </Stack>
+        </Fieldset>
+      </Tooltip.Floating>
       <Group grow justify="center" align="stretch">
         <Button
           variant="gradient"
           gradient={{ to: 'cyan', from: 'violet' }}
           onClick={sendReadyMessage}
         >
-          Ready Up
+          {isReady ? 'Unready' : 'Ready Up'}
         </Button>
-        <Button variant="gradient" gradient={{ from: 'pink', to: 'yellow' }} disabled={!canStartGame}>
-          Start Game
-        </Button>
+        {isHost && (
+          <Button
+            variant="gradient"
+            gradient={{ from: 'pink', to: 'yellow' }}
+            disabled={!canStartGame}
+          >
+            Start Game
+          </Button>
+        )}
       </Group>
     </Stack>
   );

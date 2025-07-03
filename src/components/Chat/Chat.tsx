@@ -35,7 +35,7 @@ function Chat() {
   }, []);
 
   return (
-    <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={400}>
+    <>
       <ScrollArea h={400} scrollbars="y" offsetScrollbars={true}>
         <Stack px={10}>
           {state.messages.map((msg, index) => (
@@ -82,7 +82,7 @@ function Chat() {
         }}
         value={state.currentMessage}
       />
-    </Card>
+    </>
   );
 }
 
