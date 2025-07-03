@@ -7,4 +7,5 @@ export type Player = {
   wordSubmittedThisTurn: boolean;
   bestWord: string;
   variant?: 'marble' | 'beam' | 'pixel' | 'sunset' | 'ring' | 'bauhaus';
+  host: boolean
 };

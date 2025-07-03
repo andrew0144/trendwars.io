@@ -22,7 +22,7 @@ type WaitingLobbyState = {
   currentMessage: string;
 };
 
-function WaitingLobby({ players, yourId }: { players: Player[]; yourId: string }) {
+function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }) {
   const [state, setState] = useState<WaitingLobbyState>({
     players: players || [],
     hasGameStarted: false,
@@ -111,7 +111,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: string }
               <ButtonCopy lobbyId={lobbyId} />
             </Group>
           </Title>
-          <LobbyForm />
+          <LobbyForm players={state.players} yourId={yourId} />
         </Card>
       </Group>
       <Group grow justify="center" align="stretch" mt={'md'} mb={'sm'} gap={'xs'}>

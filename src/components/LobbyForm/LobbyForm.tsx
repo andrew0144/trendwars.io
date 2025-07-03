@@ -1,10 +1,11 @@
-import { use, useEffect, useState } from 'react';
-import { Button, Group, NumberInput, SegmentedControl, Stack, Text, Tooltip } from '@mantine/core';
+import { useEffect, useState } from 'react';
+import { Button, Group, NumberInput, SegmentedControl, Stack, Text } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import { sendLobbySettings, sendReadyMessage } from '@/common/Message/MessageUtils';
 import { ws } from '@/common/socketConfig';
+import { Player } from '@/common/Player';
 
-function LobbyForm() {
+function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
   const [settings, setSettings] = useState({
     rounds: 5,
     turnTimer: 'Off',
@@ -23,6 +24,9 @@ function LobbyForm() {
     console.log('lobbySettings', lobbySettings);
     sendLobbySettings(lobbySettings);
   };
+
+  const isHost = players.some((p) => p.id === yourId && p.host);
+  const canStartGame = isHost && players.length > 1 && players.every((p) => p.ready);
 
   useEffect(() => {
     ws.on('message', (json: string) => {
@@ -82,7 +86,7 @@ function LobbyForm() {
         >
           Ready Up
         </Button>
-        <Button variant="gradient" gradient={{ from: 'pink', to: 'yellow' }} disabled={true}>
+        <Button variant="gradient" gradient={{ from: 'pink', to: 'yellow' }} disabled={!canStartGame}>
           Start Game
         </Button>
       </Group>

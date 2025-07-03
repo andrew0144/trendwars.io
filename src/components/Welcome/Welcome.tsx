@@ -38,6 +38,7 @@ export function Welcome() {
     username: '',
     wordSubmittedThisTurn: false,
     variant: 'beam',
+    host: false,
   });
 
   function rerouteToLobby(

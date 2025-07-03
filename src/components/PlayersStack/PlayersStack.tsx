@@ -1,22 +1,24 @@
-import { IconCircleCheckFilled, IconCircleDashedCheck } from '@tabler/icons-react';
+import { IconCircleCheckFilled, IconCircleDashedCheck, IconCrown } from '@tabler/icons-react';
 import Avatar from 'boring-avatars';
-import { ActionIcon, Group, Menu, ScrollArea, Table, Text } from '@mantine/core';
+import { ActionIcon, Group, Menu, ScrollArea, Stack, Table, Text } from '@mantine/core';
 import { Player } from '@/common/Player';
 import classes from './PlayersStack.module.css';
 
 export function PlayersStack({ players, yourId }: { players: Player[]; yourId: number }) {
-  console.log(yourId);
 
   const rows = players.map((player) => (
     <Table.Tr key={player.id}>
       <Table.Td>
         <Group gap="sm">
+          <Stack justify="center" align="center" gap={0}>
+          {player.host && <IconCrown size={16} stroke={1.5} />}
           <Avatar
             size={40}
             name={player.username}
             variant={player.variant ?? 'beam'}
             className={classes.avatar}
           />
+          </Stack>
           <div>
             <Text fz="sm" fw={500}>
               {player.username}
