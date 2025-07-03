@@ -11,7 +11,12 @@ export function PlayersStack({ players, yourId }: { players: Player[]; yourId: n
     <Table.Tr key={player.id}>
       <Table.Td>
         <Group gap="sm">
-          <Avatar size={40} name={player.username} variant={player.variant ?? 'beam'} className={classes.avatar} />
+          <Avatar
+            size={40}
+            name={player.username}
+            variant={player.variant ?? 'beam'}
+            className={classes.avatar}
+          />
           <div>
             <Text fz="sm" fw={500}>
               {player.username}

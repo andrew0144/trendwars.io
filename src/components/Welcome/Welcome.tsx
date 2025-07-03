@@ -1,7 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import Avatar from 'boring-avatars';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, Container, Group, SegmentedControl, Text, TextInput, Title } from '@mantine/core';
+import {
+  Button,
+  Card,
+  Container,
+  Group,
+  SegmentedControl,
+  Text,
+  TextInput,
+  Title,
+} from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
 import {
@@ -109,10 +118,15 @@ export function Welcome() {
 
       <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" mt="xl">
         <Group justify="space-between" mb={20}>
-          <Avatar size={100} name={player.username} variant={player.variant} className={classes.avatar} />
+          <Avatar
+            size={100}
+            name={player.username}
+            variant={player.variant}
+            className={classes.avatar}
+          />
           <TextInput
             size="md"
-            variant='filled'
+            variant="filled"
             placeholder="Enter your username"
             value={player.username}
             error={usernameError ? 'Username cannot be empty' : ''}
@@ -123,20 +137,20 @@ export function Welcome() {
         <Group justify="space-between" mb={20}>
           <Text c="dimmed">Change your look</Text>
           <SegmentedControl
-          size="md"
+            size="md"
             className={classes.input}
             data={['beam', 'marble', 'ring', 'bauhaus']}
             value={player.variant}
-            onChange={(value) => setPlayer((prev) => ({ ...prev, variant: value } as Player))}
+            onChange={(value) => setPlayer((prev) => ({ ...prev, variant: value }) as Player)}
           />
         </Group>
         <Group justify="space-between" mb={20}>
           <Text c="dimmed">Joining a game?</Text>
           <TextInput
-          size="md"
+            size="md"
             placeholder="Enter the lobby code"
             value={lobbyID}
-            variant='filled'
+            variant="filled"
             onChange={(event) => setLobbyID(event.currentTarget.value)}
             className={classes.input}
           />
