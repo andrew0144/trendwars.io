@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Paper, TextInput, TextInputProps } from '@mantine/core';
+import classes from './TypewriterInput.module.css';
 
 interface TypewriterInputProps
   extends Omit<TextInputProps, 'onChange' | 'onFocus' | 'onBlur' | 'ref'> {
@@ -74,80 +75,18 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
 
   return (
     <>
-      <style>{`
-        @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
-        }
-        
-        .typewriter-cursor {
-          animation: blink 1s infinite;
-        }
-        
-        .typewriter-container {
-          position: relative;
-          cursor: text;
-        }
-        
-        .typewriter-content {
-          display: flex;
-          align-items: center;
-          min-height: 40px;
-          padding: 10px 16px;
-        }
-        
-        .typewriter-first-word {
-          color: var(--mantine-color-text);
-          font-weight: 500;
-          user-select: none;
-          display: flex;
-          align-items: center;
-        }
-        
-        .typewriter-input {
-          flex: 1;
-          outline: none;
-          background-color: transparent !important;
-          border: none !important;
-          min-width: 100px;
-          padding: 0 !important;
-          margin-left: 8px;
-        }
-        
-        .typewriter-input input {
-          background-color: transparent !important;
-          border: none !important;
-          padding: 0 !important;
-          margin: 0 !important;
-          outline: none !important;
-        }
-        
-        .typewriter-label {
-          position: absolute;
-          left: 16px;
-          top: ${isFocused || displayedText || userInput ? '-8px' : '16px'};
-          font-size: ${isFocused || displayedText || userInput ? '12px' : '16px'};
-          background-color: var(--mantine-color-body);
-          padding: 0 4px;
-          color: var(--mantine-color-dimmed);
-          transition: all 0.2s ease;
-          pointer-events: none;
-          z-index: 1;
-        }
-      `}</style>
-
       <Paper
         ref={containerRef}
         onClick={handleContainerClick}
-        className="typewriter-container"
+        className={classes.typewriterContainer}
         p={0}
         radius="md"
         withBorder
       >
-        <div className="typewriter-content">
-          <span className="typewriter-first-word">
+        <div className={classes.typewriterContent}>
+          <span className={classes.typewriterFirstWord}>
             {displayedText}
-            {!isTypingComplete && <span className="typewriter-cursor">|</span>}
+            {!isTypingComplete && <span className={classes.typewriterCursor}>|</span>}
           </span>
 
           <TextInput
@@ -158,7 +97,7 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
             onFocus={handleFocus}
             onBlur={handleBlur}
             placeholder={isTypingComplete ? placeholder : ''}
-            className="typewriter-input"
+            className={classes.typewriterInput}
             variant={variant}
             size={size}
             autoFocus={isTypingComplete}
@@ -171,7 +110,10 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
           />
         </div>
 
-        <div className="typewriter-label">Current Phrase</div>
+        <div className={classes.typewriterLabel} style={{
+          top: isFocused || displayedText || userInput ? '-8px' : '16px',
+          fontSize: isFocused || displayedText || userInput ? '12px' : '16px',
+        }}>Current Phrase</div>
       </Paper>
     </>
   );
