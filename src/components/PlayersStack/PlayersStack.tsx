@@ -8,16 +8,18 @@ export function PlayersStack({
   players,
   yourId,
   hasGameStarted,
+  round
 }: {
   players: Player[];
   yourId: number;
   hasGameStarted: boolean;
+  round: number;
 }) {
   let readyCondition = hasGameStarted
     ? (player: Player) => player.wordSubmittedThisTurn
     : (player: Player) => player.ready;
 
-  const rows = players.map((player) => (
+  const rows = players.sort((a, b) => b.score - a.score).map((player, index) => (
     <Table.Tr key={player.id}>
       <Table.Td>
         <Group gap="sm">
@@ -30,14 +32,26 @@ export function PlayersStack({
               className={classes.avatar}
             />
           </Stack>
-          <div>
+          <Stack justify="center" gap={0}>
             <Text fz="sm" fw={500}>
               {player.username}
               {player.id === yourId && ' (You)'}
             </Text>
-          </div>
+            {hasGameStarted && round > 1 && (
+              <Text fz="xs" c="dimmed" ta={'left'}>
+                #{index + 1}
+              </Text>
+            )}
+          </Stack>
         </Group>
       </Table.Td>
+      {hasGameStarted && round > 1 && (
+        <Table.Td>
+          <Text fz="sm" fw={500}>
+            {player.score} points
+          </Text>
+        </Table.Td>
+      )}
       <Table.Td>
         <Group gap={0} justify="flex-end">
           {readyCondition(player) ? (

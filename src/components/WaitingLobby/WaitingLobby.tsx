@@ -41,10 +41,6 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
   const lobbyId = window.location.pathname.split('/').pop() || '';
 
   function updateStatusText(players: Player[], gameStarted = false) {
-    if (state.hasGameStarted || gameStarted) {
-      setStatusText(`Round ${state.round} of ${state.maxTurns}`);
-      return;
-    }
     if (players.length < 2) {
       setStatusText('Waiting for players to join...');
     } else if (players.every((p) => p.ready)) {
@@ -123,7 +119,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           <Title ta="center" size="xl" maw={650} mx="auto" my="0" className={classes.title}>
             {state.hasGameStarted ? (
               <Group justify="center" align="center" mb={10}>
-                <span>Round {state.round}: </span>
+                <span>Round {state.round} of {state.maxTurns}: </span>
                 <Text
                   inherit
                   variant="gradient"
@@ -149,7 +145,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             )}
           </Title>
           <Text ta="center" inherit component="span">
-            {!state.hasGameStarted && statusText}
+            {state.hasGameStarted ? '' : statusText }
           </Text>
           {state.hasGameStarted ? (
             <Game firstWord={state.startingWord} />
@@ -164,6 +160,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             players={state.players}
             yourId={yourId}
             hasGameStarted={state.hasGameStarted}
+            round={state.round}
           />
         </Card>
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={385}>
