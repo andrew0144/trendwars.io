@@ -34,7 +34,18 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
     messages: [],
     currentMessage: '',
   });
+  const [statusText, setStatusText] = useState('Waiting for players to join...');
   const lobbyId = window.location.pathname.split('/').pop() || '';
+
+  function updateStatusText(players: Player[]) {
+    if (players.length < 2) {
+      setStatusText('Waiting for players to join...');
+    } else if (players.every((p) => p.ready)) {
+      setStatusText('Waiting for host to start the game...');
+    } else {
+      setStatusText(`Waiting for players to ready up...`);
+    }
+  }
 
   useEffect(() => {
     const msg = new Message(MessageType.URL, { data: window.location.href });
@@ -79,6 +90,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             round: message.msgData.turnNumber,
             players: message.msgData.players,
           }));
+          updateStatusText(message.msgData.players);
           break;
         case 'PLAYER_STATE':
           console.log('on player state', message.msgData);
@@ -86,6 +98,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             ...prevState,
             players: message.msgData.players,
           }));
+          updateStatusText(message.msgData.players);
           break;
         default:
           break;
@@ -112,7 +125,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             </Group>
           </Title>
           <Text ta="center" inherit component="span">
-            Waiting for players to ready up...
+            {statusText}
           </Text>
           <LobbyForm players={state.players} yourId={yourId} />
         </Card>
