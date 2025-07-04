@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Paper, TextInput, TextInputProps } from '@mantine/core';
 
 interface TypewriterInputProps
-  extends Omit<TextInputProps, 'onChange' | 'onFocus' | 'onBlur' | 'value' | 'ref'> {
+  extends Omit<TextInputProps, 'onChange' | 'onFocus' | 'onBlur' | 'ref'> {
   firstWord?: string;
   onValueChange?: (value: string) => void;
 }

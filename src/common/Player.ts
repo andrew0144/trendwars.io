@@ -8,6 +8,7 @@ export type Player = {
   bestWord: string;
   variant?: AvatarVariants;
   host: boolean;
+  pointInc: number;
 };
 
 export enum AvatarVariants {

@@ -44,6 +44,7 @@ export function Welcome() {
     wordSubmittedThisTurn: false,
     variant: AvatarVariants.BEAM,
     host: false,
+    pointInc: 0,
   });
 
   function rerouteToLobby(

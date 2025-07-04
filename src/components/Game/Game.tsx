@@ -18,6 +18,10 @@ function Game({ firstWord = 'Hello' }: { firstWord?: string }) {
   }
 
   function submitWord() {
+    if (word.trim() === '') {
+      setWord('');
+      return;
+    }
     setWordDisabled(true);
     const msg = new Message(MessageType.SUBMIT_WORD, {
       data: '',
@@ -29,6 +33,7 @@ function Game({ firstWord = 'Hello' }: { firstWord?: string }) {
   useEffect(() => {
     console.log('first word changed');
     setWordDisabled(false);
+    setWord('');
   }, [firstWord]);
 
   return (
@@ -37,6 +42,7 @@ function Game({ firstWord = 'Hello' }: { firstWord?: string }) {
         firstWord={firstWord}
         onKeyDown={handleKeyDown}
         onValueChange={setWord}
+        value={word}
         disabled={wordDisabled}
       />
       <Button
