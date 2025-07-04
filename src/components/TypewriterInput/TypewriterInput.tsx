@@ -45,6 +45,17 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
     }
   }, [displayedText, firstWord]);
 
+  // Auto-focus the input after typing animation completes
+  useEffect(() => {
+    if (isTypingComplete && inputRef.current) {
+      // Use a small delay to ensure the input is fully enabled and visible
+      const focusTimer = setTimeout(() => {
+        inputRef.current?.focus();
+      }, 50);
+      return () => clearTimeout(focusTimer);
+    }
+  }, [isTypingComplete]);
+
   const handleContainerClick = (): void => {
     if (isTypingComplete && inputRef.current) {
       inputRef.current.focus();
