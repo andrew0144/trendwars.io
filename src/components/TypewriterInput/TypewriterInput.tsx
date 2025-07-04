@@ -92,14 +92,16 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
         .typewriter-content {
           display: flex;
           align-items: center;
-          min-height: 32px;
-          padding: 12px 16px;
+          min-height: 40px;
+          padding: 10px 16px;
         }
         
         .typewriter-first-word {
           color: var(--mantine-color-text);
           font-weight: 500;
           user-select: none;
+          display: flex;
+          align-items: center;
         }
         
         .typewriter-input {
@@ -110,6 +112,14 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
           min-width: 100px;
           padding: 0 !important;
           margin-left: 8px;
+        }
+        
+        .typewriter-input input {
+          background-color: transparent !important;
+          border: none !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          outline: none !important;
         }
         
         .typewriter-label {
@@ -140,22 +150,25 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
             {!isTypingComplete && <span className="typewriter-cursor">|</span>}
           </span>
 
-          {isTypingComplete && (
-            <TextInput
-              ref={inputRef}
-              value={userInput}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              placeholder={placeholder}
-              className="typewriter-input"
-              variant={variant}
-              size={size}
-              autoFocus
-              {...textInputProps}
-            />
-          )}
+          <TextInput
+            ref={inputRef}
+            value={userInput}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            placeholder={isTypingComplete ? placeholder : ''}
+            className="typewriter-input"
+            variant={variant}
+            size={size}
+            autoFocus={isTypingComplete}
+            disabled={!isTypingComplete}
+            style={{ 
+              opacity: isTypingComplete ? 1 : 0,
+              pointerEvents: isTypingComplete ? 'auto' : 'none'
+            }}
+            {...textInputProps}
+          />
         </div>
 
         <div className="typewriter-label">Current Phrase</div>
