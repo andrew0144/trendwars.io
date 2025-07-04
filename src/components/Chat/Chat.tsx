@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IconMessageSearch } from '@tabler/icons-react';
 import Avatar from 'boring-avatars';
-import { Card, Group, ScrollArea, Stack } from '@mantine/core';
+import { Button, Card, Group, ScrollArea, Stack } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
 import { AvatarVariants, Player } from '@/common/Player';
@@ -16,6 +16,8 @@ type ChatMessage = {
 };
 
 function Chat() {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<{
     messages: ChatMessage[];
     currentMessage: string;
@@ -29,6 +31,12 @@ function Chat() {
     ],
     currentMessage: '',
   });
+
+  const scrollToBottom = () => {
+    if (viewportRef.current && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     ws.on('message', (json: string) => {
@@ -44,6 +52,10 @@ function Chat() {
             ...prevState,
             messages: [...prevState.messages, message.msgData as ChatMessage],
           }));
+          // Use setTimeout to ensure the message is rendered before scrolling
+          setTimeout(() => {
+            scrollToBottom();
+          }, 0);
           break;
         default:
           break;
@@ -51,9 +63,18 @@ function Chat() {
     });
   }, []);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [state.messages]);
+
   return (
     <>
-      <ScrollArea h={400} scrollbars="y" offsetScrollbars={true}>
+      <ScrollArea
+        h={400}
+        scrollbars="y"
+        offsetScrollbars={true}
+        viewportRef={viewportRef}
+      >
         <Stack px={10}>
           {state.messages.map((msg, index) => (
             <Group gap={5} key={index}>
@@ -68,6 +89,7 @@ function Chat() {
               {msg.username !== 'System' ? `${msg.username}: ${msg.text}` : `${msg.text}`}
             </Group>
           ))}
+          <div ref={messagesEndRef} />
         </Stack>
       </ScrollArea>
       <InputWithButton

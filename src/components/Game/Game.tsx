@@ -50,6 +50,7 @@ function Game({ firstWord = 'Hello' }: { firstWord?: string }) {
         gradient={{ to: 'cyan', from: 'violet' }}
         onClick={submitWord}
         disabled={wordDisabled}
+        className="fancyBtn"
       >
         Submit Word
       </Button>

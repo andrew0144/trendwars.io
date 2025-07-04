@@ -119,7 +119,9 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           <Title ta="center" size="xl" maw={650} mx="auto" my="0" className={classes.title}>
             {state.hasGameStarted ? (
               <Group justify="center" align="center" mb={10}>
-                <span>Round {state.round} of {state.maxTurns}: </span>
+                <span>
+                  Round {state.round} of {state.maxTurns}:{' '}
+                </span>
                 <Text
                   inherit
                   variant="gradient"
@@ -145,7 +147,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             )}
           </Title>
           <Text ta="center" inherit component="span">
-            {state.hasGameStarted ? '' : statusText }
+            {state.hasGameStarted ? '' : statusText}
           </Text>
           {state.hasGameStarted ? (
             <Game firstWord={state.startingWord} />

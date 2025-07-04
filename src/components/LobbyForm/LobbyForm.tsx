@@ -119,6 +119,7 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
           variant="gradient"
           gradient={{ to: 'cyan', from: 'violet' }}
           onClick={sendReadyMessage}
+          className="fancyBtn"
         >
           {isReady ? 'Unready' : 'Ready Up'}
         </Button>
@@ -128,6 +129,7 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
             gradient={{ from: 'pink', to: 'yellow' }}
             disabled={!canStartGame}
             onClick={handleStartGame}
+            className="fancierBtn"
           >
             Start Game
           </Button>

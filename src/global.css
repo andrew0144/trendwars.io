@@ -1,0 +1,9 @@
+.fancyBtn:hover {
+  transition: 0.25s ease-in-out;
+  box-shadow: 0px 0px 8px var(--mantine-color-blue-6);
+}
+
+.fancierBtn:hover {
+  transition: 0.25s ease-in-out;
+  box-shadow: 0px 0px 8px var(--mantine-color-pink-6);
+}
