@@ -160,7 +160,11 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
       </Group>
       <Group grow justify="center" align="stretch" mt={'xs'} mb={'xs'} gap={'xs'}>
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={385}>
-          <PlayersStack players={state.players} yourId={yourId} hasGameStarted={state.hasGameStarted} />
+          <PlayersStack
+            players={state.players}
+            yourId={yourId}
+            hasGameStarted={state.hasGameStarted}
+          />
         </Card>
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={385}>
           <Chat />

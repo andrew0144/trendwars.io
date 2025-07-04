@@ -27,14 +27,24 @@ function Game({ firstWord = 'Hello' }: { firstWord?: string }) {
   }
 
   useEffect(() => {
-    console.log('first word changed')
+    console.log('first word changed');
     setWordDisabled(false);
   }, [firstWord]);
 
   return (
     <Stack maw={600} mx="auto" my={'sm'} w={'100%'} gap={'sm'}>
-      <TypewriterInput firstWord={firstWord} onKeyDown={handleKeyDown} onValueChange={setWord} disabled={wordDisabled} />
-      <Button variant="gradient" gradient={{ to: 'cyan', from: 'violet' }} onClick={submitWord} disabled={wordDisabled}>
+      <TypewriterInput
+        firstWord={firstWord}
+        onKeyDown={handleKeyDown}
+        onValueChange={setWord}
+        disabled={wordDisabled}
+      />
+      <Button
+        variant="gradient"
+        gradient={{ to: 'cyan', from: 'violet' }}
+        onClick={submitWord}
+        disabled={wordDisabled}
+      >
         Submit Word
       </Button>
     </Stack>
