@@ -1,0 +1,50 @@
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.typewriter-cursor {
+    animation: blink 1s infinite;
+}
+
+.typewriter-container {
+    position: relative;
+    cursor: text;
+}
+
+.typewriter-content {
+    display: flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 12px 16px;
+}
+
+.typewriter-first-word {
+    color: var(--mantine-color-text);
+    font-weight: 500;
+    user-select: none;
+}
+
+.typewriter-input {
+    flex: 1;
+    outline: none;
+    background-color: transparent !important;
+    border: none !important;
+    min-width: 100px;
+    padding: 0 !important;
+    margin-left: 8px;
+}
+
+.typewriter-label {
+    position: absolute;
+    left: 16px;
+    top: ${isFocused || displayedText || userInput ? '-8px' : '16px'};
+    font-size: ${isFocused || displayedText || userInput ? '12px' : '16px'};
+    background-color: var(--mantine-color-body);
+    padding: 0 4px;
+    color: var(--mantine-color-dimmed);
+    transition: all 0.2s ease;
+    pointer-events: none;
+    z-index: 1;
+}

@@ -10,7 +10,11 @@ import {
   Tooltip,
 } from '@mantine/core';
 import Message from '@/common/Message/Message';
-import { sendLobbySettings, sendReadyMessage } from '@/common/Message/MessageUtils';
+import {
+  sendLobbySettings,
+  sendReadyMessage,
+  sendStartGameMessage,
+} from '@/common/Message/MessageUtils';
 import { Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
 
@@ -32,6 +36,10 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
     };
     console.log('lobbySettings', lobbySettings);
     sendLobbySettings(lobbySettings);
+  };
+
+  const handleStartGame = () => {
+    sendStartGameMessage();
   };
 
   const isHost = players.some((p) => p.id === yourId && p.host);
@@ -119,6 +127,7 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
             variant="gradient"
             gradient={{ from: 'pink', to: 'yellow' }}
             disabled={!canStartGame}
+            onClick={handleStartGame}
           >
             Start Game
           </Button>

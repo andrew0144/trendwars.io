@@ -6,6 +6,7 @@ import { Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
 import ButtonCopy from '../ButtonCopy/ButtonCopy';
 import Chat from '../Chat/Chat';
+import Game from '../Game/Game';
 import LobbyForm from '../LobbyForm/LobbyForm';
 import { PlayersStack } from '../PlayersStack/PlayersStack';
 import classes from './WaitingLobby.module.css';
@@ -19,7 +20,8 @@ type WaitingLobbyState = {
   results: string;
   round: number;
   messages: string[];
-  currentMessage: string;
+  maxTurns: number;
+  startingWord: string;
 };
 
 function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }) {
@@ -32,12 +34,17 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
     results: '',
     round: 1,
     messages: [],
-    currentMessage: '',
+    maxTurns: 5,
+    startingWord: 'N/A',
   });
   const [statusText, setStatusText] = useState('Waiting for players to join...');
   const lobbyId = window.location.pathname.split('/').pop() || '';
 
-  function updateStatusText(players: Player[]) {
+  function updateStatusText(players: Player[], gameStarted = false) {
+    if (state.hasGameStarted || gameStarted) {
+      setStatusText(`Round ${state.round} of ${state.maxTurns}`);
+      return;
+    }
     if (players.length < 2) {
       setStatusText('Waiting for players to join...');
     } else if (players.every((p) => p.ready)) {
@@ -70,7 +77,9 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             ...prevState,
             hasGameStarted: true,
             firstStartingWord: message.msgData['firstStartingWord'],
+            startingWord: message.msgData['firstStartingWord'],
           }));
+          updateStatusText(message.msgData.players, true);
           break;
         case 'LOBBY_DOESNT_EXIST':
           setState((prevState) => ({
@@ -89,6 +98,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             ...prevState,
             round: message.msgData.turnNumber,
             players: message.msgData.players,
+            startingWord: message.msgData.startingWord || prevState.startingWord,
           }));
           updateStatusText(message.msgData.players);
           break;
@@ -111,28 +121,46 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
       <Group grow justify="center" align="stretch">
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="xs" mah={450}>
           <Title ta="center" size="xl" maw={650} mx="auto" my="0" className={classes.title}>
-            <Group justify="center" align="center" mb={10}>
-              <span>Lobby ID: </span>
-              <Text
-                inherit
-                variant="gradient"
-                component="span"
-                gradient={{ from: 'pink', to: 'yellow' }}
-              >
-                {lobbyId}
-              </Text>
-              <ButtonCopy lobbyId={lobbyId} />
-            </Group>
+            {state.hasGameStarted ? (
+              <Group justify="center" align="center" mb={10}>
+                <span>Round {state.round}: </span>
+                <Text
+                  inherit
+                  variant="gradient"
+                  component="span"
+                  gradient={{ from: 'pink', to: 'yellow' }}
+                >
+                  Fight!
+                </Text>
+              </Group>
+            ) : (
+              <Group justify="center" align="center" mb={10}>
+                <span>Lobby ID: </span>
+                <Text
+                  inherit
+                  variant="gradient"
+                  component="span"
+                  gradient={{ from: 'pink', to: 'yellow' }}
+                >
+                  {lobbyId}
+                </Text>
+                <ButtonCopy lobbyId={lobbyId} />
+              </Group>
+            )}
           </Title>
           <Text ta="center" inherit component="span">
-            {statusText}
+            {!state.hasGameStarted && statusText}
           </Text>
-          <LobbyForm players={state.players} yourId={yourId} />
+          {state.hasGameStarted ? (
+            <Game firstWord={state.startingWord} />
+          ) : (
+            <LobbyForm players={state.players} yourId={yourId} />
+          )}
         </Card>
       </Group>
       <Group grow justify="center" align="stretch" mt={'xs'} mb={'xs'} gap={'xs'}>
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={385}>
-          <PlayersStack players={state.players} yourId={yourId} />
+          <PlayersStack players={state.players} yourId={yourId} hasGameStarted={state.hasGameStarted} />
         </Card>
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={385}>
           <Chat />

@@ -4,7 +4,9 @@ import { ActionIcon, Group, Menu, ScrollArea, Stack, Table, Text } from '@mantin
 import { Player } from '@/common/Player';
 import classes from './PlayersStack.module.css';
 
-export function PlayersStack({ players, yourId }: { players: Player[]; yourId: number }) {
+export function PlayersStack({ players, yourId, hasGameStarted }: { players: Player[]; yourId: number; hasGameStarted: boolean }) {
+  let readyCondition = hasGameStarted ? (player: Player) => player.wordSubmittedThisTurn : (player: Player) => player.ready;
+
   const rows = players.map((player) => (
     <Table.Tr key={player.id}>
       <Table.Td>
@@ -28,7 +30,7 @@ export function PlayersStack({ players, yourId }: { players: Player[]; yourId: n
       </Table.Td>
       <Table.Td>
         <Group gap={0} justify="flex-end">
-          {player.ready ? (
+          {readyCondition(player) ? (
             <IconCircleCheckFilled size={32} stroke={1.5} />
           ) : (
             <IconCircleDashedCheck size={32} stroke={1.5} />
