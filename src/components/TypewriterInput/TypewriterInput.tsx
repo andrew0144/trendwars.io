@@ -102,18 +102,23 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
             size={size}
             autoFocus={isTypingComplete}
             disabled={!isTypingComplete}
-            style={{ 
+            style={{
               opacity: isTypingComplete ? 1 : 0,
-              pointerEvents: isTypingComplete ? 'auto' : 'none'
+              pointerEvents: isTypingComplete ? 'auto' : 'none',
             }}
             {...textInputProps}
           />
         </div>
 
-        <div className={classes.typewriterLabel} style={{
-          top: isFocused || displayedText || userInput ? '-8px' : '16px',
-          fontSize: isFocused || displayedText || userInput ? '12px' : '16px',
-        }}>Current Phrase</div>
+        <div
+          className={classes.typewriterLabel}
+          style={{
+            top: isFocused || displayedText || userInput ? '-8px' : '16px',
+            fontSize: isFocused || displayedText || userInput ? '12px' : '16px',
+          }}
+        >
+          Current Phrase
+        </div>
       </Paper>
     </>
   );
