@@ -8,7 +8,7 @@ export function Header() {
       <div className={classes.inner}>
         <Group>
           <Anchor
-            href="http://localhost:5173"
+            href={import.meta.env.BASE_URL}
             underline="never"
             inherit
             variant="gradient"
