@@ -17,11 +17,11 @@
 .avatar {
   margin: 0 auto;
 }
-/* 
+
 .goBtn:hover {
   transition: 0.25s ease-in-out;
   box-shadow: 0px 0px 8px var(--mantine-color-blue-6);
-} */
+}
 
 .alert {
   margin-top: 20px;
