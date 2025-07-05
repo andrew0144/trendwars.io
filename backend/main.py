@@ -12,8 +12,8 @@ from termcolor import colored
 # connection setup stuff
 app = Flask(__name__, template_folder='../frontend/dist', static_folder='../frontend/dist/assets', static_url_path='/assets')
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="*", ping_timeout=5, ping_interval=5)
-
+socketio = SocketIO(app, cors_allowed_origins="*")
+# , ping_timeout=5, ping_interval=5
 lobbyIDGenerator = LobbyIDGenerator() # struct to easily generate unique, 6-uppercase-letter lobby IDs 
 lobbies = [] # List of all active lobbies
 idToPlayer = {} #map player id to player object for quick access
