@@ -182,7 +182,7 @@ export function Welcome() {
             maxLength={6}
           />
         </Group>
-        <Button mt={10} variant="gradient" onClick={handleGoClick} className={classes.goBtn}>
+        <Button mt={10} variant="gradient" onClick={handleGoClick} onTouchEnd={handleGoClick} className={classes.goBtn}>
           Go
         </Button>
       </Card>
