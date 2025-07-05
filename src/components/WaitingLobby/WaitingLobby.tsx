@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { Card, Container, Group, Text, Title } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
@@ -19,11 +19,12 @@ type WaitingLobbyState = {
   playerListShouldShow: boolean;
   firstStartingWord: string;
   results: string;
-  round: number;
+  round: number | 'N/A';
   messages: string[];
   maxTurns: number;
   startingWord: string;
   gameHistory: any[]; // Adjust type as needed
+  resultsPlayers: Player[];
 };
 
 function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }) {
@@ -39,12 +40,13 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
     maxTurns: 5,
     startingWord: 'N/A',
     gameHistory: [],
+    resultsPlayers: [],
   });
   const [showResults, setShowResults] = useState(false);
   const [statusText, setStatusText] = useState('Waiting for players to join...');
   const lobbyId = window.location.pathname.split('/').pop() || '';
 
-  function updateStatusText(players: Player[], gameStarted = false) {
+  function updateStatusText(players: Player[]) {
     if (players.length < 2) {
       setStatusText('Waiting for players to join...');
     } else if (players.every((p) => p.ready)) {
@@ -79,7 +81,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             firstStartingWord: message.msgData['firstStartingWord'],
             startingWord: message.msgData['firstStartingWord'],
           }));
-          updateStatusText(message.msgData.players, true);
+          updateStatusText(message.msgData.players);
           break;
         case 'LOBBY_DOESNT_EXIST':
           setState((prevState) => ({
@@ -88,10 +90,12 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           }));
           break;
         case 'RESULTS':
+          console.log('SHOWING RESULTS');
           setState((prevState) => ({
             ...prevState,
             results: message.msgData.scores,
             gameHistory: message.msgData.gameHistory || [],
+            resultsPlayers: prevState.players.slice(),
           }));
           setShowResults(true);
           break;
@@ -108,15 +112,14 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           console.log('on player state', message.msgData);
           setState((prevState) => ({
             ...prevState,
-            players: message.msgData.players,
+            maxTurns: message.msgData.maxTurns || prevState.maxTurns,
           }));
-          updateStatusText(message.msgData.players);
           break;
         default:
           break;
       }
     });
-  }, []);
+  }, [showResults]);
 
   return (
     <Container fluid>
@@ -139,7 +142,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               ) : (
                 <Group justify="center" align="center" mb={10}>
                   <span>
-                    Round {state.round} of {state.maxTurns}:{' '}
+                    Round {state.round == 'N/A' ? 1 : state.round} of {state.maxTurns}:{' '}
                   </span>
                   <Text
                     inherit
@@ -171,7 +174,11 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           </Text>
           {state.hasGameStarted ? (
             showResults ? (
-              <Results gameHistory={state.gameHistory} players={state.players} yourId={yourId} />
+              <Results
+                gameHistory={state.gameHistory}
+                players={state.resultsPlayers}
+                yourId={yourId}
+              />
             ) : (
               <Game firstWord={state.startingWord} />
             )
@@ -186,7 +193,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             players={state.players}
             yourId={yourId}
             hasGameStarted={state.hasGameStarted}
-            round={state.round}
+            round={state.round != 'N/A' ? state.round : 1}
             hasGameEnded={showResults}
           />
         </Card>

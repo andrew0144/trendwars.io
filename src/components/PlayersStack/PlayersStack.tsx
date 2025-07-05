@@ -71,10 +71,10 @@ export function PlayersStack({
             </Stack>
           </Group>
         </Table.Td>
-        {hasGameStarted && round > 1 && (
+        {hasGameStarted && (
           <Table.Td>
             <Text fz="sm" fw={500}>
-              {player.score} points (+{player.pointInc})
+              {player.score} points{ player.score > 0 && ` (+${player.pointInc})`}
             </Text>
           </Table.Td>
         )}
