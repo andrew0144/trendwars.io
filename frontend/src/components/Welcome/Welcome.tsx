@@ -172,7 +172,6 @@ export function Welcome() {
             value={player.username}
             error={usernameError ? 'Username cannot be empty' : ''}
             onChange={handleUsernameChange}
-            onKeyDown={handleGoClick}
             className={classes.input}
             maxLength={21}
           />
