@@ -1,5 +1,6 @@
 import warnings
-from flask import Flask, request 
+import os
+from flask import Flask, request, render_template, send_from_directory
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 from Message import Message, MessageType
@@ -9,7 +10,7 @@ from ConnectionManager import ConnectionManager
 from termcolor import colored
 
 # connection setup stuff
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../frontend/dist', static_folder='../frontend/dist/assets', static_url_path='/assets')
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*", ping_timeout=5, ping_interval=5)
 
@@ -107,6 +108,31 @@ def onMessage(msg):
 @app.route("/health")
 def health_check():
     return "OK", 200
+
+# Route to serve the main HTML file (index.html)
+@app.route('/')
+def serve_vite_app():
+   return send_from_directory(app.template_folder, 'index.html')
+
+# Route to serve other static assets (e.g., images, fonts)
+@app.route('/<path:filename>')
+def serve_static_assets(filename):
+    return send_from_directory(app.static_folder, filename)
+
+# @app.route('/favicon.ico')
+# def favicon():
+#     return send_from_directory(app.template_folder, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+# # Explicit route for manifest.json
+# @app.route('/logo192.png')
+# def logo():
+#     return send_from_directory(app.template_folder, 'logo192.png', mimetype='image/png')
+
+# # Explicit route for manifest.json
+# @app.route('/manifest.json')
+# def manifest():
+#     return send_from_directory(app.template_folder, 'manifest.json', mimetype='application/manifest+json')
+
 
 def main():
     socketio.run(app, host='0.0.0.0', port=8000, allow_unsafe_werkzeug=True)
