@@ -1,6 +1,5 @@
-import { IconCrown } from '@tabler/icons-react';
 import Avatar from 'boring-avatars';
-import { Anchor, Group, ScrollArea, Stack, Table, TableTr, Text } from '@mantine/core';
+import { Anchor, Group, ScrollArea, Stack, Table, Text } from '@mantine/core';
 import { Player } from '@/common/Player';
 
 function Results({
