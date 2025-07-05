@@ -135,7 +135,7 @@ def serve_static_assets(filename):
 
 
 def main():
-    socketio.run(app, host='0.0.0.0', port=8000, allow_unsafe_werkzeug=True)
+    socketio.run(app, host='127.0.0.1', port=8000, allow_unsafe_werkzeug=True)
 
 if __name__ == '__main__':
     main()
