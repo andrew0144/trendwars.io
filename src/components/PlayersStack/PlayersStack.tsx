@@ -1,6 +1,6 @@
-import { IconCircleCheckFilled, IconCircleDashedCheck, IconCrown } from '@tabler/icons-react';
+import { IconCircleCheckFilled, IconCircleDashedCheck, IconCrown, IconLaurelWreath, IconLaurelWreath1, IconLaurelWreath1Filled, IconLaurelWreath2, IconLaurelWreath2Filled, IconLaurelWreath3, IconLaurelWreath3Filled, IconLaurelWreathFilled } from '@tabler/icons-react';
 import Avatar from 'boring-avatars';
-import { ActionIcon, Group, Menu, ScrollArea, Stack, Table, Text } from '@mantine/core';
+import { Group, ScrollArea, Stack, Table, Text } from '@mantine/core';
 import { Player } from '@/common/Player';
 import classes from './PlayersStack.module.css';
 
@@ -9,15 +9,31 @@ export function PlayersStack({
   yourId,
   hasGameStarted,
   round,
+  hasGameEnded,
 }: {
   players: Player[];
   yourId: number;
   hasGameStarted: boolean;
   round: number;
+  hasGameEnded: boolean;
 }) {
   let readyCondition = hasGameStarted
     ? (player: Player) => player.wordSubmittedThisTurn
     : (player: Player) => player.ready;
+
+    function getCardIcon(index: number) {
+      switch (index) {
+        case 0:
+          return <IconLaurelWreath1 size={32} stroke={1.5} />;
+        case 1:
+          return <IconLaurelWreath2 size={32} stroke={1.5} />;
+        case 2:
+          return <IconLaurelWreath3 size={32} stroke={1.5} />;
+
+        default:
+          return <IconLaurelWreath size={32} stroke={1.5} />;
+      }
+    }
 
   const rows = players
     .sort((a, b) => b.score - a.score)
@@ -56,7 +72,9 @@ export function PlayersStack({
         )}
         <Table.Td>
           <Group gap={0} justify="flex-end">
-            {readyCondition(player) ? (
+            {hasGameEnded ? (
+              getCardIcon(index)
+            ) : readyCondition(player) ? (
               <IconCircleCheckFilled size={32} stroke={1.5} />
             ) : (
               <IconCircleDashedCheck size={32} stroke={1.5} />

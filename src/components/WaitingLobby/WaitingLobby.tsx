@@ -9,6 +9,7 @@ import Chat from '../Chat/Chat';
 import Game from '../Game/Game';
 import LobbyForm from '../LobbyForm/LobbyForm';
 import { PlayersStack } from '../PlayersStack/PlayersStack';
+import Results from '../Results/Results';
 import classes from './WaitingLobby.module.css';
 
 type WaitingLobbyState = {
@@ -22,6 +23,7 @@ type WaitingLobbyState = {
   messages: string[];
   maxTurns: number;
   startingWord: string;
+  gameHistory: any[]; // Adjust type as needed
 };
 
 function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }) {
@@ -36,7 +38,9 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
     messages: [],
     maxTurns: 5,
     startingWord: 'N/A',
+    gameHistory: [],
   });
+  const [showResults, setShowResults] = useState(false);
   const [statusText, setStatusText] = useState('Waiting for players to join...');
   const lobbyId = window.location.pathname.split('/').pop() || '';
 
@@ -87,7 +91,9 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           setState((prevState) => ({
             ...prevState,
             results: message.msgData.scores,
+            gameHistory: message.msgData.gameHistory || [],
           }));
+          setShowResults(true);
           break;
         case 'LOBBY_STATE':
           setState((prevState) => ({
@@ -118,19 +124,33 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="xs" mah={450}>
           <Title ta="center" size="xl" maw={650} mx="auto" my="0" className={classes.title}>
             {state.hasGameStarted ? (
-              <Group justify="center" align="center" mb={10}>
-                <span>
-                  Round {state.round} of {state.maxTurns}:{' '}
-                </span>
-                <Text
-                  inherit
-                  variant="gradient"
-                  component="span"
-                  gradient={{ from: 'pink', to: 'yellow' }}
-                >
-                  Fight!
-                </Text>
-              </Group>
+              showResults ? (
+                <Group justify="center" align="center" mb={10}>
+                  <span>Explore</span>
+                  <Text
+                    inherit
+                    variant="gradient"
+                    component="span"
+                    gradient={{ from: 'pink', to: 'yellow' }}
+                  >
+                    Results
+                  </Text>
+                </Group>
+              ) : (
+                <Group justify="center" align="center" mb={10}>
+                  <span>
+                    Round {state.round} of {state.maxTurns}:{' '}
+                  </span>
+                  <Text
+                    inherit
+                    variant="gradient"
+                    component="span"
+                    gradient={{ from: 'pink', to: 'yellow' }}
+                  >
+                    Fight!
+                  </Text>
+                </Group>
+              )
             ) : (
               <Group justify="center" align="center" mb={10}>
                 <span>Lobby ID: </span>
@@ -150,7 +170,11 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             {state.hasGameStarted ? '' : statusText}
           </Text>
           {state.hasGameStarted ? (
-            <Game firstWord={state.startingWord} />
+            showResults ? (
+              <Results gameHistory={state.gameHistory} players={state.players} yourId={yourId} />
+            ) : (
+              <Game firstWord={state.startingWord} />
+            )
           ) : (
             <LobbyForm players={state.players} yourId={yourId} />
           )}
@@ -163,6 +187,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             yourId={yourId}
             hasGameStarted={state.hasGameStarted}
             round={state.round}
+            hasGameEnded={showResults}
           />
         </Card>
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={385}>

@@ -11,7 +11,7 @@ interface TypewriterInputProps
 export const TypewriterInput: React.FC<TypewriterInputProps> = ({
   firstWord = 'Hello',
   onValueChange,
-  placeholder = 'continue typing...',
+  placeholder = 'finish the phrase...',
   size = 'md',
   variant = 'unstyled',
   ...textInputProps
