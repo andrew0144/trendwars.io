@@ -74,7 +74,7 @@ export function PlayersStack({
         {hasGameStarted && (
           <Table.Td>
             <Text fz="sm" fw={500}>
-              {player.score} points{ player.score > 0 && ` (+${player.pointInc})`}
+              {player.score} points{player.score > 0 && ` (+${player.pointInc})`}
             </Text>
           </Table.Td>
         )}
