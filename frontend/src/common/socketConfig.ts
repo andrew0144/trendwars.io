@@ -1,6 +1,6 @@
 import openSocket from 'socket.io-client';
 
-export let server_location = 'http://localhost:8000';
+export let server_location = 'https://trendwars.io:8000';
 // if (process.env.REACT_APP_LOCAL !== undefined) {
 //     console.log("Will be connecting to local server.")
 //     server_location = "http://localhost:8000"
