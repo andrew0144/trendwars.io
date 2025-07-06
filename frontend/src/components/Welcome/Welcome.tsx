@@ -195,7 +195,7 @@ export function Welcome() {
           Go
         </Button>
       </Card>
-    <Transition
+      <Transition
         mounted={showAlert}
         transition="slide-down"
         duration={150}
@@ -217,11 +217,18 @@ export function Welcome() {
           </Alert>
         )}
       </Transition>
-      <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" my="md" px='md' py='xs'>
+      <Card
+        withBorder
+        radius="md"
+        bg="var(--mantine-color-body)"
+        maw={500}
+        mx="auto"
+        my="md"
+        px="md"
+        py="xs"
+      >
         <HowToPlay />
       </Card>
-
-      
     </Container>
   );
 }
