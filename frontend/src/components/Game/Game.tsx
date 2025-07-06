@@ -39,7 +39,6 @@ function Game({ firstWord = 'Hello' }: { firstWord?: string }) {
     setWord('');
   }, [firstWord]);
 
-
   useEffect(() => {
     ws.on('message', (json: string) => {
       const message = Message.fromJSON(json);

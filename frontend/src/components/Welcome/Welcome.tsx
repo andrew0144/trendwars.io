@@ -52,14 +52,14 @@ export function Welcome() {
     playerId = currentPlayerIdRef.current || yourId
   ) {
     try {
-    navigate(`/lobby/${data.lobbyID}`, {
-      replace: true,
-      state: {
-        players: data.lobby_state.players,
-        yourId: playerId,
-        lobbyID: data.lobbyID,
-      },
-    });
+      navigate(`/lobby/${data.lobbyID}`, {
+        replace: true,
+        state: {
+          players: data.lobby_state.players,
+          yourId: playerId,
+          lobbyID: data.lobbyID,
+        },
+      });
     } catch (error: any) {
       console.error('Error during reroute:', error);
     }

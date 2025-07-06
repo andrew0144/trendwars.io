@@ -132,13 +132,9 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
           Current Phrase
         </div>
       </Paper>
-      
+
       {/* Display error message outside the input container */}
-      {textInputProps.error && (
-        <div className={classes.errorMessage}>
-          {textInputProps.error}
-        </div>
-      )}
+      {textInputProps.error && <div className={classes.errorMessage}>{textInputProps.error}</div>}
     </>
   );
 };
