@@ -19,12 +19,12 @@ function HowToPlaySlide({
   return (
     <Carousel.Slide lightHidden={lightHidden} darkHidden={darkHidden}>
       <Stack justify="space-between" align="center">
-        <h2>{title}</h2>
+        <h2 style={{ marginTop: '10px', marginBottom: '0px' }}>{title}</h2>
         <Image
           radius="xl"
           src={imageSrc}
           alt={title}
-          h={170}
+          h={160}
           fit="contain"
           fallbackSrc="https://placehold.co/600x400?text=Placeholder"
         />
@@ -40,7 +40,7 @@ export function HowToPlay() {
     <>
       <Carousel
         withIndicators
-        height={300}
+        height={255}
         emblaOptions={{
           loop: true,
           dragFree: false,
