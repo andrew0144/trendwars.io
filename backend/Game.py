@@ -189,6 +189,11 @@ class Game:
 
     def endGame(self):
         self.CM.send_to_all_in_lobby(self.lobby.id, Message(MessageType.GAME_ENDED, {}))
+        self.CM.send_to_all_in_lobby(self.lobby.id, Message(MessageType.CHAT, {
+            "username": 'System',
+            "variant": 'beam',
+            "text": "Game ended."
+        }))
         results = []
         for player, rank in self.playerRank.items():
             player.rank = self.playerRank[player]

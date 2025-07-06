@@ -46,13 +46,11 @@ export function Welcome() {
     host: false,
     pointInc: 0,
   });
-  const [goErrorText, setGoErrorText] = useState('');
 
   function rerouteToLobby(
     data: { lobbyID: any; lobby_state: { players: Player[] } },
     playerId = currentPlayerIdRef.current || yourId
   ) {
-    setGoErrorText((prev) => prev + ' in reroute to lobby.');
     try {
     navigate(`/lobby/${data.lobbyID}`, {
       replace: true,
@@ -63,30 +61,25 @@ export function Welcome() {
       },
     });
     } catch (error: any) {
-      setGoErrorText((prev) => prev + ' ' + error.message);
       console.error('Error during reroute:', error);
     }
   }
 
   function handleGoClick() {
     try {
-      setGoErrorText((prev)=> prev + ' attempting to join lobby.');
       if (player.username.trim() !== '') {
         sendPlayerUpdateMessage(player.username, player.variant);
-        setGoErrorText((prev)=> prev + ' sending player update message.');
       } else {
         setUsernameError(true);
         return;
       }
       if (lobbyID.trim() !== '') {
-        setGoErrorText((prev)=> prev + ' sending join lobby message.');
         sendJoinLobbyMessage(lobbyID);
       } else {
-        setGoErrorText((prev)=> prev + ' sending create lobby message.');
         sendCreateLobbyMessage();
       }
     } catch (error: any) {
-     setGoErrorText((prev)=> prev + ' ' + error.message);
+      console.error('Error during handleGoClick:', error);
     }
   }
 
@@ -120,11 +113,9 @@ export function Welcome() {
           setYourId(message.msgData.your_id);
           break;
         case 'LOBBY_CREATED':
-          setGoErrorText((prev) => prev + ' lobby created successfully, attempting reroute.');
           rerouteToLobby(message.msgData, currentPlayerIdRef.current);
           break;
         case 'PLAYER_STATE':
-          setGoErrorText((prev) => prev + ' player state received.');
           setLoaded(true);
           setPlayer((prev) => ({ ...prev, ...message.msgData }));
           break;
@@ -202,9 +193,6 @@ export function Welcome() {
         <Button mt={10} variant="gradient" onClick={handleGoClick} className={classes.goBtn}>
           Go
         </Button>
-        <Text c="dimmed" ta="center" size="lg" maw={650} mx="auto" mt="xl">
-          {goErrorText}
-        </Text>
       </Card>
 
       <Transition

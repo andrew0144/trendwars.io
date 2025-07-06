@@ -1,6 +1,12 @@
 import openSocket from 'socket.io-client';
 
-export let server_location = 'https://trendwars.io';
+export let production_server_location = 'https://trendwars.io';
+export let local_server_location = 'http://localhost:8000';
+const mode = import.meta.env.MODE || 'production';
+let server_location = production_server_location;
+if (mode === 'development') {
+    server_location = local_server_location;
+}
 
 export const ws = openSocket(server_location, {
     transports: ['websocket', 'polling'], // Allow fallback to polling

@@ -88,22 +88,28 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
                 onChange={(value) => setSettings((prev) => ({ ...prev, rounds: Number(value) }))}
               />
             </Group>
+            <Tooltip.Floating label="Coming soon!" offset={15}>
             <Group grow justify="center" align="stretch">
               <Text>Turn Timer (seconds)</Text>
               <SegmentedControl
                 data={['Off', '10', '30', '60']}
                 value={settings.turnTimer}
                 onChange={(value) => setSettings((prev) => ({ ...prev, turnTimer: value }))}
+                disabled
               />
             </Group>
+            </Tooltip.Floating>
+            <Tooltip.Floating label="Coming soon!" offset={15}>
             <Group grow justify="center" align="stretch">
               <Text>Word Generation</Text>
               <SegmentedControl
                 data={['Random', "Player's choice"]}
                 value={settings.wordGeneration}
                 onChange={(value) => setSettings((prev) => ({ ...prev, wordGeneration: value }))}
+                disabled
               />
             </Group>
+            </Tooltip.Floating>
             {isHost && (
               <Group grow justify="center" align="stretch">
                 <Button variant="light" color="green" onClick={handleConfirmSettings}>

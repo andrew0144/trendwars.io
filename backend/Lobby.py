@@ -53,11 +53,13 @@ class Lobby:
                 if self.gameCanStart():
                     self.startGame()
                     first_word = self.game.curWord
+                    self.CM.send_to_all_in_lobby(self.id, Message(MessageType.CHAT, {
+                            "username": 'System',
+                            "variant": 'beam',
+                            "text": "Starting game..."
+                        }))
                     self.CM.send_to_all_in_lobby(self.id, Message(MessageType.GAME_STARTED, {"firstStartingWord": first_word}))
-                    self.CM.send_to_all_in_lobby(self.id, Message(MessageType.LOBBY_STATE, self.getLobbyState()))
-                    
-                    # self.game.evaluateSubmissions()
-                    
+                    self.CM.send_to_all_in_lobby(self.id, Message(MessageType.LOBBY_STATE, self.getLobbyState()))     
                 else:
                     self.CM.send_to_player(player, Message(MessageType.GAME_CANNOT_START, {}))
 
@@ -75,6 +77,11 @@ class Lobby:
 
                     # retcode == 1 means the submission was processed just fine
                     else:
+                        self.CM.send_to_all_in_lobby(self.id, Message(MessageType.CHAT, {
+                            "username": player.username,
+                            "variant": player.variant,
+                            "text": f"Submitted word \"{message.msgData['word']}\""
+                        }))
                         self.CM.send_to_all_in_lobby(self.id, Message(MessageType.WORD_SUBMITTED, {"playerID": player.id}))
                         if self.game.everyoneHasSubmitted():
                             self.game.evaluateSubmissions()
@@ -84,11 +91,6 @@ class Lobby:
                                 "text": "Starting new round..."
                             }))
                         self.CM.send_to_all_in_lobby(self.id, Message(MessageType.LOBBY_STATE, self.getLobbyState()))
-                        self.CM.send_to_all_in_lobby(self.id, Message(MessageType.CHAT, {
-                            "username": player.username,
-                            "variant": player.variant,
-                            "text": f"Submitted word \"{message.msgData['word']}\""
-                        }))
                 else: # if there is no game and a word was submitted somehow
                     warnings.warn(colored(f"Game has not started for lobby {self.id}. Not handling request.", 'yellow'))
             

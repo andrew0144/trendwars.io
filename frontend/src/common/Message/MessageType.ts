@@ -17,6 +17,7 @@ let MessageType = {
   LOBBY_STATE: 'LOBBY_STATE',
   PLAYER_STATE: 'PLAYER_STATE',
   PLAYER_UPDATE: 'PLAYER_UPDATE',
+  DUPLICATE_WORD: 'DUPLICATE_WORD',
   //insert more types as needed, make sure one exists on backend too
 };
 
