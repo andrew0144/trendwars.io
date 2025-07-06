@@ -137,19 +137,19 @@ export function Welcome() {
 
   return (
     <Container fluid>
-      <Title className={classes.title} ta="center" mt={'sm'}>
+      <Title className={classes.title} ta="center" mt={20}>
         Welcome to{' '}
         <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
           Trend Wars
         </Text>
       </Title>
-      <Text c="dimmed" ta="center" size="lg" maw={750} mx="auto" mt="0">
+      <Text c="dimmed" ta="center" size="lg" maw={650} mx="auto" mt="xl">
         Trend Wars is a 2 to 5 player word game inspired by Google Trends. You will be given a word
         each round. Come up with a trendy phrase to pair with it. Based on Trends data, your phrase
         will be scored from 0 to 100. After 5 rounds, the player with the most points wins.
       </Text>
 
-      <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" mt="md">
+      <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" mt="xl">
         <Group justify="space-between" mb={20}>
           <Avatar
             size={100}
@@ -191,10 +191,15 @@ export function Welcome() {
             maxLength={6}
           />
         </Group>
-        <Button variant="gradient" onClick={handleGoClick} className={classes.goBtn}>
+        <Button mt={10} variant="gradient" onClick={handleGoClick} className={classes.goBtn}>
           Go
         </Button>
       </Card>
+
+      {/* <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" my="xl">
+        <HowToPlay />
+      </Card> */}
+
       <Transition
         mounted={showAlert}
         transition="slide-down"
@@ -217,18 +222,6 @@ export function Welcome() {
           </Alert>
         )}
       </Transition>
-      <Card
-        withBorder
-        radius="md"
-        bg="var(--mantine-color-body)"
-        maw={500}
-        mx="auto"
-        my="md"
-        px="md"
-        py="xs"
-      >
-        <HowToPlay />
-      </Card>
     </Container>
   );
 }
