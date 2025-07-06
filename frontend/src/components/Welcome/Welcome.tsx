@@ -23,8 +23,8 @@ import {
 } from '@/common/Message/MessageUtils';
 import { AvatarVariants, Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
-import classes from './Welcome.module.css';
 import { HowToPlay } from '../HowToPlay/HowToPlay';
+import classes from './Welcome.module.css';
 
 export function Welcome() {
   const currentPlayerIdRef = useRef('');
@@ -197,7 +197,7 @@ export function Welcome() {
       </Card>
 
       <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" my="xl">
-          <HowToPlay />
+        <HowToPlay />
       </Card>
 
       <Transition
