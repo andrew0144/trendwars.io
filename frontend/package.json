@@ -20,11 +20,15 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
+    "@mantine/carousel": "^8.1.2",
     "@mantine/core": "8.1.2",
     "@mantine/form": "^8.1.2",
     "@mantine/hooks": "8.1.2",
     "@tabler/icons-react": "^3.34.0",
     "boring-avatars": "^1.11.2",
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2",
