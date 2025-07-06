@@ -12,7 +12,17 @@ from termcolor import colored
 # connection setup stuff
 app = Flask(__name__, template_folder='../frontend/dist', static_folder='../frontend/dist/assets', static_url_path='/assets')
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="*")
+
+# Updated SocketIO configuration for production
+socketio = SocketIO(
+    app, 
+    cors_allowed_origins="*",
+    async_mode='eventlet',  # or 'gevent' if using gevent
+    logger=True,
+    engineio_logger=True,
+    ping_timeout=60,
+    ping_interval=25
+)
 # , ping_timeout=5, ping_interval=5
 lobbyIDGenerator = LobbyIDGenerator() # struct to easily generate unique, 6-uppercase-letter lobby IDs 
 lobbies = [] # List of all active lobbies
