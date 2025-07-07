@@ -108,7 +108,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           }));
           updateStatusText(message.msgData.players);
           break;
-        case 'PLAYER_STATE':
+        case 'LOBBY_SETTINGS_UPDATED':
           console.log('on player state', message.msgData);
           setState((prevState) => ({
             ...prevState,
