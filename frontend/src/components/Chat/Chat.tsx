@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { IconMessageSearch } from '@tabler/icons-react';
 import Avatar from 'boring-avatars';
-import { Button, Card, Group, ScrollArea, Stack } from '@mantine/core';
+import { Group, ScrollArea, Stack } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
-import { AvatarVariants, Player } from '@/common/Player';
+import { AvatarVariants } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
 import { InputWithButton } from '../InputWithButton/InputWithButton';
 import classes from './Chat.module.css';
