@@ -2,6 +2,16 @@ import { useRef } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel } from '@mantine/carousel';
 import { Image, Stack, Text, useMantineColorScheme } from '@mantine/core';
+import game from '@/assets/game.png';
+import gameLight from '@/assets/gameLight.png';
+import lobbySettings from '@/assets/lobbySettings.png';
+import lobbySettingsLight from '@/assets/lobbySettingsLight.png';
+import playerStack from '@/assets/playerStack.png';
+import playerStackLight from '@/assets/playerStackLight.png';
+import resultsTable from '@/assets/resultsTable.png';
+import resultsTableLight from '@/assets/resultsTableLight.png';
+import welcomeCard from '@/assets/welcomeCard.png';
+import welcomeCardLight from '@/assets/welcomeCardLight.png';
 
 function HowToPlaySlide({
   title,
@@ -53,59 +63,29 @@ export function HowToPlay() {
         px="xl"
       >
         {colorScheme === 'light' ? (
-          <HowToPlaySlide
-            title="Join or Create a Lobby"
-            imageSrc="/src/components/HowToPlay/welcomeCardLight.png"
-          />
+          <HowToPlaySlide title="Join or Create a Lobby" imageSrc={welcomeCardLight} />
         ) : (
-          <HowToPlaySlide
-            title="Join or Create a Lobby"
-            imageSrc="/src/components/HowToPlay/welcomeCard.png"
-          />
+          <HowToPlaySlide title="Join or Create a Lobby" imageSrc={welcomeCard} />
         )}
         {colorScheme === 'light' ? (
-          <HowToPlaySlide
-            title="Choose Lobby Settings"
-            imageSrc="/src/components/HowToPlay/LobbySettingsLight.png"
-          />
+          <HowToPlaySlide title="Choose Lobby Settings" imageSrc={lobbySettingsLight} />
         ) : (
-          <HowToPlaySlide
-            title="Choose Lobby Settings"
-            imageSrc="/src/components/HowToPlay/LobbySettings.png"
-          />
+          <HowToPlaySlide title="Choose Lobby Settings" imageSrc={lobbySettings} />
         )}
         {colorScheme === 'light' ? (
-          <HowToPlaySlide
-            title="Ready Up and Start the Game"
-            imageSrc="/src/components/HowToPlay/playerStackLight.png"
-          />
+          <HowToPlaySlide title="Ready Up and Start the Game" imageSrc={playerStackLight} />
         ) : (
-          <HowToPlaySlide
-            title="Ready Up and Start the Game"
-            imageSrc="/src/components/HowToPlay/playerStack.png"
-          />
+          <HowToPlaySlide title="Ready Up and Start the Game" imageSrc={playerStack} />
         )}
         {colorScheme === 'light' ? (
-          <HowToPlaySlide
-            title="Submit your Phrase Each Round"
-            imageSrc="/src/components/HowToPlay/gameLight.png"
-          />
+          <HowToPlaySlide title="Submit your Phrase Each Round" imageSrc={gameLight} />
         ) : (
-          <HowToPlaySlide
-            title="Submit your Phrase Each Round"
-            imageSrc="/src/components/HowToPlay/game.png"
-          />
+          <HowToPlaySlide title="Submit your Phrase Each Round" imageSrc={game} />
         )}
         {colorScheme === 'light' ? (
-          <HowToPlaySlide
-            title="Explore the Results"
-            imageSrc="/src/components/HowToPlay/resultsTableLight.png"
-          />
+          <HowToPlaySlide title="Explore the Results" imageSrc={resultsTableLight} />
         ) : (
-          <HowToPlaySlide
-            title="Explore the Results"
-            imageSrc="/src/components/HowToPlay/resultsTable.png"
-          />
+          <HowToPlaySlide title="Explore the Results" imageSrc={resultsTable} />
         )}
       </Carousel>
     </>
