@@ -85,11 +85,12 @@ class Lobby:
                         self.CM.send_to_all_in_lobby(self.id, Message(MessageType.WORD_SUBMITTED, {"playerID": player.id}))
                         if self.game.everyoneHasSubmitted():
                             self.game.evaluateSubmissions()
-                            self.CM.send_to_all_in_lobby(self.id, Message(MessageType.CHAT, {
-                                "username": 'System',
-                                "variant": 'beam',
-                                "text": "Starting new round..."
-                            }))
+                            if not self.game.gameEnded:
+                                self.CM.send_to_all_in_lobby(self.id, Message(MessageType.CHAT, {
+                                    "username": 'System',
+                                    "variant": 'beam',
+                                    "text": "Starting new round..."
+                                }))
                         self.CM.send_to_all_in_lobby(self.id, Message(MessageType.LOBBY_STATE, self.getLobbyState()))
                 else: # if there is no game and a word was submitted somehow
                     warnings.warn(colored(f"Game has not started for lobby {self.id}. Not handling request.", 'yellow'))

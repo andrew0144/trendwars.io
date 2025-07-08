@@ -202,6 +202,7 @@ class Game:
             "scores": results,
             "gameHistory": self.gameHistory,
             }))
+        self.setGameOver()
 
 
     def processReadyForNextRound(self, player: Player):
