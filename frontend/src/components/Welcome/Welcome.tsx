@@ -149,7 +149,7 @@ export function Welcome() {
         will be scored from 0 to 100. After 5 rounds, the player with the most points wins.
       </Text>
 
-      <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" mt="xl">
+      <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" my="xl">
         <Grid justify="space-between" align="center" columns={100} gutter={0}>
           <Grid.Col span={{ base: 100, xs: 28 }} mb={20}>
             <Group justify="center" align="center" p={0} m={0}>
