@@ -4,7 +4,7 @@ import { Carousel } from '@mantine/carousel';
 import { Image, Stack, Text, useMantineColorScheme } from '@mantine/core';
 import game from '@/assets/game.png';
 import gameLight from '@/assets/gameLight.png';
-import lobbySettings from '@/assets/lobbySettings.png';
+import lobbySettings from '@/assets/LobbySettings.png';
 import lobbySettingsLight from '@/assets/lobbySettingsLight.png';
 import playerStack from '@/assets/playerStack.png';
 import playerStackLight from '@/assets/playerStackLight.png';
