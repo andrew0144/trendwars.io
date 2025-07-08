@@ -110,7 +110,6 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
             className={classes.typewriterInput}
             variant={variant}
             size={size}
-            autoFocus={isTypingComplete}
             disabled={!isTypingComplete}
             style={{
               opacity: isTypingComplete ? 1 : 0,

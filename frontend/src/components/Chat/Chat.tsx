@@ -7,6 +7,7 @@ import { AvatarVariants } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
 import { InputWithButton } from '../InputWithButton/InputWithButton';
 import classes from './Chat.module.css';
+import { useScrollIntoView } from '@mantine/hooks';
 
 type ChatMessage = {
   username: string;
@@ -15,8 +16,9 @@ type ChatMessage = {
 };
 
 function Chat() {
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const viewportRef = useRef<HTMLDivElement>(null);
+  const { scrollIntoView, targetRef, scrollableRef} = useScrollIntoView<HTMLDivElement>({
+    offset: 0
+  });
   const [state, setState] = useState<{
     messages: ChatMessage[];
     currentMessage: string;
@@ -30,12 +32,6 @@ function Chat() {
     ],
     currentMessage: '',
   });
-
-  const scrollToBottom = () => {
-    if (viewportRef.current && messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   useEffect(() => {
     ws.on('message', (json: string) => {
@@ -51,10 +47,6 @@ function Chat() {
             ...prevState,
             messages: [...prevState.messages, message.msgData as ChatMessage],
           }));
-          // Use setTimeout to ensure the message is rendered before scrolling
-          setTimeout(() => {
-            scrollToBottom();
-          }, 0);
           break;
         default:
           break;
@@ -63,12 +55,12 @@ function Chat() {
   }, []);
 
   useEffect(() => {
-    scrollToBottom();
+    scrollIntoView({ alignment: 'end' });
   }, [state.messages]);
 
   return (
     <>
-      <ScrollArea h={400} scrollbars="y" offsetScrollbars viewportRef={viewportRef}>
+      <ScrollArea h={400} scrollbars="y" offsetScrollbars viewportRef={scrollableRef}>
         <Stack px={10}>
           {state.messages.map((msg, index) => (
             <Group gap={5} key={index}>
@@ -83,7 +75,7 @@ function Chat() {
               {msg.username !== 'System' ? `${msg.username}: ${msg.text}` : `${msg.text}`}
             </Group>
           ))}
-          <div ref={messagesEndRef} />
+          <div ref={targetRef} />
         </Stack>
       </ScrollArea>
       <InputWithButton
