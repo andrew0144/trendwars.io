@@ -10,7 +10,6 @@ import {
   Grid,
   Group,
   SegmentedControl,
-  SimpleGrid,
   Text,
   TextInput,
   Title,
@@ -151,15 +150,10 @@ export function Welcome() {
       </Text>
 
       <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" mt="xl">
-        <Grid justify="space-between" align="center"  columns={100} gutter={0}>
+        <Grid justify="space-between" align="center" columns={100} gutter={0}>
           <Grid.Col span={{ base: 100, xs: 28 }} mb={20}>
             <Group justify="center" align="center" p={0} m={0}>
-              <Avatar
-                size={100}
-                name={player.username}
-                variant={player.variant}
-                
-              />
+              <Avatar size={100} name={player.username} variant={player.variant} />
             </Group>
           </Grid.Col>
           <Grid.Col span={{ base: 100, xs: 68 }} mb={20}>
@@ -178,22 +172,22 @@ export function Welcome() {
           </Grid.Col>
           <Grid.Col span={{ base: 100, xs: 68 }} mb={20}>
             <SegmentedControl
-              w={'100%'}
-              size={'md'}
+              w="100%"
+              size="md"
               className={classes.input}
               data={['beam', 'marble', 'ring', 'bauhaus']}
               value={player.variant}
               onChange={(value) => setPlayer((prev) => ({ ...prev, variant: value }) as Player)}
-              visibleFrom='xxs'
+              visibleFrom="xxs"
             />
             <SegmentedControl
-              w={'100%'}
-              size={'sm'}
+              w="100%"
+              size="sm"
               className={classes.input}
               data={['beam', 'marble', 'ring', 'bauhaus']}
               value={player.variant}
               onChange={(value) => setPlayer((prev) => ({ ...prev, variant: value }) as Player)}
-              hiddenFrom='xxs'
+              hiddenFrom="xxs"
             />
           </Grid.Col>
           <Grid.Col span={{ base: 100, xs: 28 }} mb={20}>
@@ -201,15 +195,15 @@ export function Welcome() {
           </Grid.Col>
           <Grid.Col span={{ base: 100, xs: 68 }} mb={20}>
             <TextInput
-            w={'100%'}
-            size="md"
-            placeholder="Enter the lobby code"
-            value={lobbyID}
-            variant="filled"
-            onChange={handleLobbyCodeChange}
-            className={classes.input}
-            error={lobbyCodeError ? 'Invalid lobby code' : ''}
-            maxLength={6}
+              w="100%"
+              size="md"
+              placeholder="Enter the lobby code"
+              value={lobbyID}
+              variant="filled"
+              onChange={handleLobbyCodeChange}
+              className={classes.input}
+              error={lobbyCodeError ? 'Invalid lobby code' : ''}
+              maxLength={6}
             />
           </Grid.Col>
           <Grid.Col span={100}>

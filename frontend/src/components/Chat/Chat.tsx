@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Avatar from 'boring-avatars';
 import { Group, ScrollArea, Stack } from '@mantine/core';
+import { useScrollIntoView } from '@mantine/hooks';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
 import { AvatarVariants } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
 import { InputWithButton } from '../InputWithButton/InputWithButton';
 import classes from './Chat.module.css';
-import { useScrollIntoView } from '@mantine/hooks';
 
 type ChatMessage = {
   username: string;
@@ -16,8 +16,8 @@ type ChatMessage = {
 };
 
 function Chat() {
-  const { scrollIntoView, targetRef, scrollableRef} = useScrollIntoView<HTMLDivElement>({
-    offset: 0
+  const { scrollIntoView, targetRef, scrollableRef } = useScrollIntoView<HTMLDivElement>({
+    offset: 0,
   });
   const [state, setState] = useState<{
     messages: ChatMessage[];
