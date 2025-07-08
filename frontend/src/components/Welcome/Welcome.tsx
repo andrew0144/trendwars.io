@@ -7,8 +7,10 @@ import {
   Button,
   Card,
   Container,
+  Grid,
   Group,
   SegmentedControl,
+  SimpleGrid,
   Text,
   TextInput,
   Title,
@@ -149,37 +151,57 @@ export function Welcome() {
       </Text>
 
       <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" mt="xl">
-        <Group justify="space-between" mb={20}>
-          <Avatar
-            size={100}
-            name={player.username}
-            variant={player.variant}
-            className={classes.avatar}
-          />
-          <TextInput
-            size="md"
-            variant="filled"
-            placeholder="Enter your username"
-            value={player.username}
-            error={usernameError ? 'Username cannot be empty' : ''}
-            onChange={handleUsernameChange}
-            className={classes.input}
-            maxLength={21}
-          />
-        </Group>
-        <Group justify="space-between" mb={20}>
-          <Text c="dimmed">Change your look</Text>
-          <SegmentedControl
-            size="md"
-            className={classes.input}
-            data={['beam', 'marble', 'ring', 'bauhaus']}
-            value={player.variant}
-            onChange={(value) => setPlayer((prev) => ({ ...prev, variant: value }) as Player)}
-          />
-        </Group>
-        <Group justify="space-between" mb={20}>
-          <Text c="dimmed">Joining a game?</Text>
-          <TextInput
+        <Grid justify="space-between" align="center"  columns={100} gutter={0}>
+          <Grid.Col span={{ base: 100, xs: 28 }} mb={20}>
+            <Group justify="center" align="center" p={0} m={0}>
+              <Avatar
+                size={100}
+                name={player.username}
+                variant={player.variant}
+                
+              />
+            </Group>
+          </Grid.Col>
+          <Grid.Col span={{ base: 100, xs: 68 }} mb={20}>
+            <TextInput
+              size="md"
+              variant="filled"
+              placeholder="Enter your username"
+              value={player.username}
+              error={usernameError ? 'Username cannot be empty' : ''}
+              onChange={handleUsernameChange}
+              className={classes.input}
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 100, xs: 28 }} mb={20}>
+            <Text c="dimmed">Change your look</Text>
+          </Grid.Col>
+          <Grid.Col span={{ base: 100, xs: 68 }} mb={20}>
+            <SegmentedControl
+              w={'100%'}
+              size={'md'}
+              className={classes.input}
+              data={['beam', 'marble', 'ring', 'bauhaus']}
+              value={player.variant}
+              onChange={(value) => setPlayer((prev) => ({ ...prev, variant: value }) as Player)}
+              visibleFrom='xxs'
+            />
+            <SegmentedControl
+              w={'100%'}
+              size={'sm'}
+              className={classes.input}
+              data={['beam', 'marble', 'ring', 'bauhaus']}
+              value={player.variant}
+              onChange={(value) => setPlayer((prev) => ({ ...prev, variant: value }) as Player)}
+              hiddenFrom='xxs'
+            />
+          </Grid.Col>
+          <Grid.Col span={{ base: 100, xs: 28 }} mb={20}>
+            <Text c="dimmed">Joining a game?</Text>
+          </Grid.Col>
+          <Grid.Col span={{ base: 100, xs: 68 }} mb={20}>
+            <TextInput
+            w={'100%'}
             size="md"
             placeholder="Enter the lobby code"
             value={lobbyID}
@@ -188,16 +210,21 @@ export function Welcome() {
             className={classes.input}
             error={lobbyCodeError ? 'Invalid lobby code' : ''}
             maxLength={6}
-          />
-        </Group>
-        <Button mt={10} variant="gradient" onClick={handleGoClick} className={classes.goBtn}>
-          Go
-        </Button>
+            />
+          </Grid.Col>
+          <Grid.Col span={100}>
+            <Button
+              mt={10}
+              variant="gradient"
+              onClick={handleGoClick}
+              className={classes.goBtn}
+              fullWidth
+            >
+              Go
+            </Button>
+          </Grid.Col>
+        </Grid>
       </Card>
-
-      {/* <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" my="xl">
-        <HowToPlay />
-      </Card> */}
 
       <Transition
         mounted={showAlert}
