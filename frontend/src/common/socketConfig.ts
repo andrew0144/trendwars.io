@@ -12,11 +12,10 @@ export const ws = openSocket(server_location, {
   transports: ['websocket', 'polling'], // Allow fallback to polling
   upgrade: true,
   rememberUpgrade: true,
-  timeout: 20000,
-  forceNew: true,
+  timeout: 30000,
   reconnection: true,
   reconnectionAttempts: 5,
-  reconnectionDelay: 1000, // Enable debug logging (remove in production)
+  reconnectionDelay: 1000,
 });
 
 // Add connection event listeners for debugging
