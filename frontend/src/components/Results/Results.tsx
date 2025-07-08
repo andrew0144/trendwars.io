@@ -24,11 +24,11 @@ function Results({
   }
 
   return (
-    <ScrollArea scrollbars="y" offsetScrollbars={true}>
+    <ScrollArea scrollbars="y" offsetScrollbars>
       <Table verticalSpacing="md">
         <Table.Thead>
           <Table.Tr>
-            <Table.Th></Table.Th>
+            <Table.Th />
             {sortedPlayers.map((player, index) => (
               <Table.Th key={player.id}>
                 <Group gap="sm">
@@ -40,7 +40,7 @@ function Results({
                       {player.username}
                       {player.id === yourId && ' (You)'}
                     </Text>
-                    <Text fz="xs" c="dimmed" ta={'left'}>
+                    <Text fz="xs" c="dimmed" ta="left">
                       #{index + 1}
                     </Text>
                   </Stack>

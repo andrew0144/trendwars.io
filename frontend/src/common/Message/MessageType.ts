@@ -1,4 +1,4 @@
-let MessageType = {
+const MessageType = {
   CREATE_LOBBY: 'CREATE_LOBBY',
   PLAYER_JOIN: 'PLAYER_JOIN',
   READY: 'READY',

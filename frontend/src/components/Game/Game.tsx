@@ -59,7 +59,7 @@ function Game({ firstWord = 'Hello' }: { firstWord?: string }) {
   }, []);
 
   return (
-    <Stack maw={600} mx="auto" my={'sm'} w={'100%'} gap={'sm'}>
+    <Stack maw={600} mx="auto" my="sm" w="100%" gap="sm">
       <TypewriterInput
         firstWord={firstWord}
         onKeyDown={handleKeyDown}

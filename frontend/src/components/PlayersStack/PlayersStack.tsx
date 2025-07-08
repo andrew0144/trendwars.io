@@ -25,7 +25,7 @@ export function PlayersStack({
   round: number;
   hasGameEnded: boolean;
 }) {
-  let readyCondition = hasGameStarted
+  const readyCondition = hasGameStarted
     ? (player: Player) => player.wordSubmittedThisTurn
     : (player: Player) => player.ready;
 
@@ -64,7 +64,7 @@ export function PlayersStack({
                 {player.id === yourId && ' (You)'}
               </Text>
               {hasGameStarted && round > 1 && (
-                <Text fz="xs" c="dimmed" ta={'left'}>
+                <Text fz="xs" c="dimmed" ta="left">
                   #{index + 1}
                 </Text>
               )}
@@ -93,7 +93,7 @@ export function PlayersStack({
     ));
 
   return (
-    <ScrollArea scrollbars="y" offsetScrollbars={true}>
+    <ScrollArea scrollbars="y" offsetScrollbars>
       <Table verticalSpacing="md">
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>

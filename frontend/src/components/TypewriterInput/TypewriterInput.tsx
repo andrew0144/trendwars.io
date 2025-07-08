@@ -37,12 +37,12 @@ export const TypewriterInput: React.FC<TypewriterInputProps> = ({
         setDisplayedText(firstWord.slice(0, displayedText.length + 1));
       }, 100);
       return () => clearTimeout(timer);
-    } else {
+    } 
       const completeTimer = setTimeout(() => {
         setIsTypingComplete(true);
       }, 500);
       return () => clearTimeout(completeTimer);
-    }
+    
   }, [displayedText, firstWord]);
 
   // Auto-focus the input after typing animation completes

@@ -48,7 +48,7 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
 
   useEffect(() => {
     ws.on('message', (json: string) => {
-      let message = Message.fromJSON(json);
+      const message = Message.fromJSON(json);
       console.log(message);
 
       if (message.msgType === 'LOBBY_SETTINGS_UPDATED') {
@@ -64,7 +64,7 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
   }, []);
 
   return (
-    <Stack maw={600} mx="auto" my={0} w={'100%'} gap={'sm'}>
+    <Stack maw={600} mx="auto" my={0} w="100%" gap="sm">
       <Tooltip.Floating
         label="Only the host can change these settings"
         disabled={isHost}
@@ -73,9 +73,9 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
         <Fieldset
           legend="Lobby Settings"
           disabled={!isHost}
-          w={'100%'}
+          w="100%"
           style={isHost ? {} : { cursor: 'not-allowed' }}
-          p={'md'}
+          p="md"
         >
           <Stack gap="md">
             <Group grow justify="center" align="stretch">

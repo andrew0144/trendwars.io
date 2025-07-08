@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel } from '@mantine/carousel';
-import { Image, Stack, useMantineColorScheme, Text } from '@mantine/core';
+import { Image, Stack, Text, useMantineColorScheme } from '@mantine/core';
 
 function HowToPlaySlide({
   title,
@@ -17,7 +17,9 @@ function HowToPlaySlide({
   return (
     <Carousel.Slide lightHidden={lightHidden} darkHidden={darkHidden}>
       <Stack justify="space-between" align="center">
-        <Text style={{ marginTop: '10px', marginBottom: '0px' }} size="xl">{title}</Text>
+        <Text style={{ marginTop: '10px', marginBottom: '0px' }} size="xl">
+          {title}
+        </Text>
         <Image
           radius="xl"
           src={imageSrc}
@@ -43,12 +45,12 @@ export function HowToPlay() {
           dragFree: false,
           align: 'center',
         }}
-        ta={'center'}
+        ta="center"
         plugins={[autoplay.current]}
         onMouseEnter={autoplay.current.stop}
         onMouseLeave={() => autoplay.current.play()}
-        pb={'xl'}
-        px={'xl'}
+        pb="xl"
+        px="xl"
       >
         {colorScheme === 'light' ? (
           <HowToPlaySlide

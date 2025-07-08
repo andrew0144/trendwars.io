@@ -1,4 +1,4 @@
-import { createRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Container, Group, Text, Title } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
@@ -61,7 +61,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
     ws.emit('message', msg.toJSON());
 
     ws.on('message', (json: string) => {
-      let message = Message.fromJSON(json);
+      const message = Message.fromJSON(json);
       console.log(message);
 
       switch (message.msgType) {
@@ -78,8 +78,8 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           setState((prevState) => ({
             ...prevState,
             hasGameStarted: true,
-            firstStartingWord: message.msgData['firstStartingWord'],
-            startingWord: message.msgData['firstStartingWord'],
+            firstStartingWord: message.msgData.firstStartingWord,
+            startingWord: message.msgData.firstStartingWord,
           }));
           updateStatusText(message.msgData.players);
           break;
@@ -142,7 +142,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               ) : (
                 <Group justify="center" align="center" mb={10}>
                   <span>
-                    Round {state.round == 'N/A' ? 1 : state.round} of {state.maxTurns}:{' '}
+                    Round {state.round === 'N/A' ? 1 : state.round} of {state.maxTurns}:{' '}
                   </span>
                   <Text
                     inherit
@@ -187,13 +187,13 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           )}
         </Card>
       </Group>
-      <Group grow justify="center" align="stretch" mt={'xs'} mb={'xs'} gap={'xs'}>
+      <Group grow justify="center" align="stretch" mt="xs" mb="xs" gap="xs">
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={385}>
           <PlayersStack
             players={state.players}
             yourId={yourId}
             hasGameStarted={state.hasGameStarted}
-            round={state.round != 'N/A' ? state.round : 1}
+            round={state.round !== 'N/A' ? state.round : 1}
             hasGameEnded={showResults}
           />
         </Card>

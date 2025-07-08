@@ -1,7 +1,7 @@
 import { Anchor, Group } from '@mantine/core';
 import { DarkModeToggle } from '../DarkModeToggle/DarkModeToggle';
-import classes from './Header.module.css';
 import { HelpButton } from '../HelpButton/HelpButton';
+import classes from './Header.module.css';
 
 export function Header() {
   return (
@@ -20,7 +20,7 @@ export function Header() {
           </Anchor>
         </Group>
 
-        <Group gap={'sm'}>
+        <Group gap="sm">
           <HelpButton />
           <DarkModeToggle />
         </Group>

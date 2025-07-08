@@ -23,7 +23,6 @@ import {
 } from '@/common/Message/MessageUtils';
 import { AvatarVariants, Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
-import { HowToPlay } from '../HowToPlay/HowToPlay';
 import classes from './Welcome.module.css';
 
 export function Welcome() {
@@ -31,7 +30,7 @@ export function Welcome() {
   const navigate = useNavigate();
   const [lobbyID, setLobbyID] = useState('');
   const [yourId, setYourId] = useState('');
-  const [loaded, setLoaded] = useState(false);
+  const [_loaded, setLoaded] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
   const [lobbyCodeError, setLobbyCodeError] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -106,7 +105,7 @@ export function Welcome() {
     ws.emit('message', msg.toJSON());
 
     ws.on('message', (json: string) => {
-      let message = Message.fromJSON(json);
+      const message = Message.fromJSON(json);
       console.log(message);
       switch (message.msgType) {
         case 'PLAYER_ID':

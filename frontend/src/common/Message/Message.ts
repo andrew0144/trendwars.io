@@ -8,7 +8,7 @@ class Message {
   }
 
   toJSON() {
-    let obj = {
+    const obj = {
       msgType: this.msgType,
       msgData: this.msgData,
     };
@@ -16,7 +16,7 @@ class Message {
   }
 
   static fromJSON(json: string) {
-    var obj = JSON.parse(json);
+    const obj = JSON.parse(json);
     return new Message(obj.msgType, obj.msgData);
   }
 }

@@ -24,10 +24,10 @@ export function HelpButton() {
           title: classes['modal-title'],
         }}
       >
-        <Card bg={'transparent'}>
-          <Text size="md" mb={'md'}>
-            Welcome to Trend Wars! This game is all about predicting trends and competing with others to see
-            who can come up with the best phrases. Follow these steps to get started:
+        <Card bg="transparent">
+          <Text size="md" mb="md">
+            Welcome to Trend Wars! This game is all about predicting trends and competing with
+            others to see who can come up with the best phrases. Follow these steps to get started:
           </Text>
           <HowToPlay />
         </Card>
