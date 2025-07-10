@@ -58,7 +58,7 @@ export function PlayersStack({
                 className={classes.avatar}
               />
             </Stack>
-            <Stack justify="center" gap={0}>
+            <Stack justify="center" gap={0} mt={player.host ? '16px' : '0'}>
               <Text fz="sm" fw={500}>
                 {player.username}
                 {player.id === yourId && ' (You)'}
@@ -73,13 +73,13 @@ export function PlayersStack({
         </Table.Td>
         {hasGameStarted && (
           <Table.Td>
-            <Text fz="sm" fw={500}>
+            <Text fz="sm" fw={500} mt={player.host ? '16px' : '0'}>
               {player.score} points{player.score > 0 && ` (+${player.pointInc})`}
             </Text>
           </Table.Td>
         )}
         <Table.Td>
-          <Group gap={0} justify="flex-end">
+          <Group gap={0} justify="flex-end" mt={player.host ? '16px' : '0'}>
             {hasGameEnded ? (
               getCardIcon(index)
             ) : readyCondition(player) ? (
@@ -93,10 +93,8 @@ export function PlayersStack({
     ));
 
   return (
-    <ScrollArea scrollbars="y" offsetScrollbars>
       <Table verticalSpacing="md">
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
-    </ScrollArea>
   );
 }

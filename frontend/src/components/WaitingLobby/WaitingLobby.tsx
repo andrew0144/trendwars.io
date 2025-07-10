@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card, Container, Group, Text, Title } from '@mantine/core';
+import { Card, Container, Flex, Group, ScrollArea, Text, Title } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
 import { Player } from '@/common/Player';
@@ -122,9 +122,9 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
   }, [showResults]);
 
   return (
-    <Container fluid>
+    <Flex direction="column" w={'100%'} h="100%" px={{ base: 'xs', xs: 'lg' }}>
       <Group grow justify="center" align="stretch">
-        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="xs" mah={450}>
+        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="xs" mah={500}>
           <Title ta="center" size="xl" maw={650} mx="auto" my="0" className={classes.title}>
             {state.hasGameStarted ? (
               showResults ? (
@@ -187,21 +187,31 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           )}
         </Card>
       </Group>
-      <Group grow justify="center" align="stretch" mt="xs" mb="xs" gap="xs">
-        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={385}>
-          <PlayersStack
-            players={state.players}
-            yourId={yourId}
-            hasGameStarted={state.hasGameStarted}
-            round={state.round !== 'N/A' ? state.round : 1}
-            hasGameEnded={showResults}
-          />
+      <Group
+        grow
+        justify="center"
+        align="stretch"
+        mt="xs"
+        mb="xs"
+        gap="xs"
+        className={classes.bottomGroup}
+      >
+        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={500} h={'100%'} mih={250}>
+          <ScrollArea.Autosize  h={'100%'}>
+            <PlayersStack
+              players={state.players}
+              yourId={yourId}
+              hasGameStarted={state.hasGameStarted}
+              round={state.round !== 'N/A' ? state.round : 1}
+              hasGameEnded={showResults}
+            />
+          </ScrollArea.Autosize>
         </Card>
-        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={385}>
+        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={500} mih={250}>
           <Chat />
         </Card>
       </Group>
-    </Container>
+    </Flex>
   );
 }
 

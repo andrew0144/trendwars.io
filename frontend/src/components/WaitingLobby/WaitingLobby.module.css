@@ -8,3 +8,7 @@
     font-size: rem(30px);
   }
 }
+
+.bottomGroup {
+  flex-grow: 1;
+}

@@ -10,6 +10,7 @@ import {
   Grid,
   Group,
   SegmentedControl,
+  Space,
   Text,
   TextInput,
   Title,
@@ -136,7 +137,7 @@ export function Welcome() {
   }, []);
 
   return (
-    <Container fluid>
+    <Container fluid w={'100%'} h="100%">
       <Title className={classes.title} ta="center" mt={20}>
         Welcome to{' '}
         <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
@@ -149,7 +150,7 @@ export function Welcome() {
         will be scored from 0 to 100. After 5 rounds, the player with the most points wins.
       </Text>
 
-      <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" my="xl">
+      <Card withBorder radius="md" bg="var(--mantine-color-body)" maw={500} mx="auto" mt="xl">
         <Grid justify="space-between" align="center" columns={100} gutter={0}>
           <Grid.Col span={{ base: 100, xs: 28 }} mb={20}>
             <Group justify="center" align="center" p={0} m={0}>
@@ -165,6 +166,7 @@ export function Welcome() {
               error={usernameError ? 'Username cannot be empty' : ''}
               onChange={handleUsernameChange}
               className={classes.input}
+              maxLength={20}
             />
           </Grid.Col>
           <Grid.Col span={{ base: 100, xs: 28 }} mb={20}>
@@ -219,6 +221,7 @@ export function Welcome() {
           </Grid.Col>
         </Grid>
       </Card>
+      <Space h="xl" />
 
       <Transition
         mounted={showAlert}
