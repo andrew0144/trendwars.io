@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card, Container, Flex, Group, ScrollArea, Text, Title } from '@mantine/core';
+import { Card, Flex, Group, ScrollArea, Text, Title } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
 import { Player } from '@/common/Player';
@@ -122,7 +122,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
   }, [showResults]);
 
   return (
-    <Flex direction="column" w={'100%'} h="100%" px={{ base: 'xs', xs: 'lg' }}>
+    <Flex direction="column" w='100%' h="100%" px={{ base: 'xs', xs: 'lg' }}>
       <Group grow justify="center" align="stretch">
         <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="xs" mah={500}>
           <Title ta="center" size="xl" maw={650} mx="auto" my="0" className={classes.title}>
@@ -196,8 +196,16 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         gap="xs"
         className={classes.bottomGroup}
       >
-        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={500} h={'100%'} mih={250}>
-          <ScrollArea.Autosize  h={'100%'}>
+        <Card
+          withBorder
+          radius="md"
+          bg="var(--mantine-color-body)"
+          mx="auto"
+          mah={500}
+          h='100%'
+          mih={250}
+        >
+          <ScrollArea.Autosize h='100%'>
             <PlayersStack
               players={state.players}
               yourId={yourId}

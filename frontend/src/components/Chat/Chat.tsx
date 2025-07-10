@@ -60,7 +60,7 @@ function Chat() {
 
   return (
     <>
-      <ScrollArea h={'100%'} scrollbars="y" offsetScrollbars viewportRef={scrollableRef}>
+      <ScrollArea h='100%' scrollbars="y" offsetScrollbars viewportRef={scrollableRef}>
         <Stack px={10}>
           {state.messages.map((msg, index) => (
             <Group gap={5} key={index}>

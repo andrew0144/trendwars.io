@@ -8,7 +8,7 @@ import {
   IconLaurelWreath3,
 } from '@tabler/icons-react';
 import Avatar from 'boring-avatars';
-import { Group, ScrollArea, Stack, Table, Text } from '@mantine/core';
+import { Group, Stack, Table, Text } from '@mantine/core';
 import { Player } from '@/common/Player';
 import classes from './PlayersStack.module.css';
 
@@ -93,8 +93,8 @@ export function PlayersStack({
     ));
 
   return (
-      <Table verticalSpacing="md">
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
+    <Table verticalSpacing="md">
+      <Table.Tbody>{rows}</Table.Tbody>
+    </Table>
   );
 }

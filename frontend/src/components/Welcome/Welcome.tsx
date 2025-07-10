@@ -137,7 +137,7 @@ export function Welcome() {
   }, []);
 
   return (
-    <Container fluid w={'100%'} h="100%">
+    <Container fluid w='100%' h="100%">
       <Title className={classes.title} ta="center" mt={20}>
         Welcome to{' '}
         <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
