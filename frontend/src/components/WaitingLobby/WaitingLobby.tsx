@@ -135,7 +135,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
     <>
       <Flex direction="column" w="100%" h="100%" px="lg" visibleFrom="xs">
         <Group grow justify="center" align="stretch">
-          <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="xs" mah={450}>
+          <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="xs" className={classes.mainCard}>
             <Title ta="center" size="xl" maw={650} mx="auto" my="0" className={classes.title}>
               {state.hasGameStarted ? (
                 showResults ? (
@@ -212,8 +212,6 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             radius="md"
             bg="var(--mantine-color-body)"
             mx="auto"
-            mah={500}
-            h="100%"
             mih={250}
           >
             <ScrollArea.Autosize h="100%">
@@ -226,7 +224,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               />
             </ScrollArea.Autosize>
           </Card>
-          <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={500} mih={250}>
+          <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mih={250} className={classes.chatCard}>
             <Chat />
           </Card>
         </Group>

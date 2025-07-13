@@ -25,7 +25,7 @@ function Results({
 
   return (
     <ScrollArea scrollbars="y" offsetScrollbars>
-      <Table verticalSpacing="md">
+      <Table verticalSpacing="sm">
         <Table.Thead>
           <Table.Tr>
             <Table.Th />

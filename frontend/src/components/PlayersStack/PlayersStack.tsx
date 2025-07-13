@@ -10,7 +10,6 @@ import {
 import Avatar from 'boring-avatars';
 import { Group, Stack, Table, Text } from '@mantine/core';
 import { Player } from '@/common/Player';
-import classes from './PlayersStack.module.css';
 
 export function PlayersStack({
   players,
@@ -55,7 +54,6 @@ export function PlayersStack({
                 size={37}
                 name={player.username}
                 variant={player.variant ?? 'beam'}
-                className={classes.avatar}
               />
             </Stack>
             <Stack justify="center" gap={0} mt={player.host ? '16px' : '0'}>

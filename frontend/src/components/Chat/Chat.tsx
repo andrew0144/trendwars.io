@@ -56,12 +56,10 @@ function Chat() {
 
   useEffect(() => {
     scrollIntoView({ alignment: 'end' });
-  }, [state.messages]);
-
-  return (
-    <>
-      <ScrollArea h="100%" scrollbars="y" offsetScrollbars viewportRef={scrollableRef}>
-        <Stack px={10}>
+  }, [state.messages]);  return (
+    <div className={classes.chatContainer}>
+      <ScrollArea scrollbars="y" offsetScrollbars viewportRef={scrollableRef} className={classes.scrollAreaWrapper}>
+        <Stack px={10} mih={0}>
           {state.messages.map((msg, index) => (
             <Group gap={5} key={index}>
               {msg.username !== 'System' && (
@@ -79,7 +77,7 @@ function Chat() {
         </Stack>
       </ScrollArea>
       <InputWithButton
-        mt={30}
+        mt='md'
         className={classes.chatInput}
         onKeyDown={(e) => {
           if (state.currentMessage.trim() === '') {
@@ -117,7 +115,7 @@ function Chat() {
         }}
         value={state.currentMessage}
       />
-    </>
+    </div>
   );
 }
 
