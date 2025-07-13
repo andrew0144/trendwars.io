@@ -5,6 +5,7 @@ import classes from './NothingFoundBackground.module.css';
 
 export function NothingFoundBackground() {
   const error = useRouteError();
+  // eslint-disable-next-line no-console
   console.error(error);
   const navigate = useNavigate();
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-  Box,
   Button,
   Fieldset,
   Group,
@@ -35,7 +34,6 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
       timeLimit,
       wordGeneration,
     };
-    console.log('lobbySettings', lobbySettings);
     sendLobbySettings(lobbySettings);
   };
 
@@ -50,7 +48,7 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
   useEffect(() => {
     ws.on('message', (json: string) => {
       const message = Message.fromJSON(json);
-      console.log(message);
+      // console.log(message);
 
       if (message.msgType === 'LOBBY_SETTINGS_UPDATED') {
         const updatedSettings = message.msgData;
@@ -140,13 +138,14 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
                 <Text hiddenFrom="xs">Word Generation</Text>
                 <Tooltip.Floating label="Coming soon!" position="bottom">
                   <SegmentedControl
-                      data={['Random', "Player's choice"]}
-                      value={settings.wordGeneration}
-                      onChange={(value) =>
-                        setSettings((prev) => ({ ...prev, wordGeneration: value }))
-                      }
-                      disabled
-                    />
+                    data={['Random', "Player's choice"]}
+                    value={settings.wordGeneration}
+                    onChange={(value) =>
+                      setSettings((prev) => ({ ...prev, wordGeneration: value }))
+                    }
+                    disabled
+                    hiddenFrom="xs"
+                  />
                 </Tooltip.Floating>
               </>
             ) : (
@@ -161,14 +160,14 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
                   />
                 </Group>
                 <Text hiddenFrom="xs">Turn Timer (seconds)</Text>
-                  <SegmentedControl
-                    fullWidth
-                    hiddenFrom="xs"
-                    data={['Off', '10', '30', '60']}
-                    value={settings.turnTimer}
-                    onChange={(value) => setSettings((prev) => ({ ...prev, turnTimer: value }))}
-                    disabled
-                  />
+                <SegmentedControl
+                  fullWidth
+                  hiddenFrom="xs"
+                  data={['Off', '10', '30', '60']}
+                  value={settings.turnTimer}
+                  onChange={(value) => setSettings((prev) => ({ ...prev, turnTimer: value }))}
+                  disabled
+                />
                 <Group grow justify="center" align="stretch" visibleFrom="xs">
                   <Text>Word Generation</Text>
                   <SegmentedControl
@@ -186,9 +185,7 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
                   hiddenFrom="xs"
                   data={['Random', "Player's choice"]}
                   value={settings.wordGeneration}
-                  onChange={(value) =>
-                    setSettings((prev) => ({ ...prev, wordGeneration: value }))
-                  }
+                  onChange={(value) => setSettings((prev) => ({ ...prev, wordGeneration: value }))}
                   disabled
                 />
               </>

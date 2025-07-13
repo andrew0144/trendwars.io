@@ -63,6 +63,7 @@ export function Welcome() {
         },
       });
     } catch (error: any) {
+      // eslint-disable-next-line no-console
       console.error('Error during reroute:', error);
     }
   }
@@ -81,6 +82,7 @@ export function Welcome() {
         sendCreateLobbyMessage();
       }
     } catch (error: any) {
+      // eslint-disable-next-line no-console
       console.error('Error during handleGoClick:', error);
     }
   }
@@ -108,7 +110,7 @@ export function Welcome() {
 
     ws.on('message', (json: string) => {
       const message = Message.fromJSON(json);
-      console.log(message);
+      // console.log(message);
       switch (message.msgType) {
         case 'PLAYER_ID':
           currentPlayerIdRef.current = message.msgData.your_id;
@@ -137,7 +139,7 @@ export function Welcome() {
   }, []);
 
   return (
-    <Container fluid w='100%' h="100%">
+    <Container fluid w="100%" h="100%">
       <Title className={classes.title} ta="center" mt={20}>
         Welcome to{' '}
         <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>

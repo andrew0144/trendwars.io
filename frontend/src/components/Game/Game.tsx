@@ -34,7 +34,6 @@ function Game({ firstWord = 'Hello' }: { firstWord?: string }) {
   }
 
   useEffect(() => {
-    console.log('first word changed');
     setWordDisabled(false);
     setWord('');
   }, [firstWord]);
@@ -42,7 +41,7 @@ function Game({ firstWord = 'Hello' }: { firstWord?: string }) {
   useEffect(() => {
     ws.on('message', (json: string) => {
       const message = Message.fromJSON(json);
-      console.log(message);
+      // console.log(message);
       switch (message.msgType) {
         case MessageType.DUPLICATE_WORD:
           setDuplicateError(true);

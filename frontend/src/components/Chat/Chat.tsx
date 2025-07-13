@@ -36,7 +36,7 @@ function Chat() {
   useEffect(() => {
     ws.on('message', (json: string) => {
       const message = Message.fromJSON(json);
-      console.log(message);
+      // console.log(message);
 
       switch (message.msgType) {
         case MessageType.CHAT:
@@ -60,7 +60,7 @@ function Chat() {
 
   return (
     <>
-      <ScrollArea h='100%' scrollbars="y" offsetScrollbars viewportRef={scrollableRef}>
+      <ScrollArea h="100%" scrollbars="y" offsetScrollbars viewportRef={scrollableRef}>
         <Stack px={10}>
           {state.messages.map((msg, index) => (
             <Group gap={5} key={index}>

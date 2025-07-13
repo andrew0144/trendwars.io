@@ -11,7 +11,7 @@
     "lint": "npm run eslint && npm run stylelint",
     "lint:fix": "npm run eslint --fix && npm run stylelint --fix",
     "eslint": "eslint . --cache",
-    "stylelint": "stylelint '**/*.css' --cache",
+    "stylelint": "stylelint \"**/*.css\" --cache",
     "prettier": "prettier --check \"**/*.{ts,tsx}\"",
     "prettier:write": "prettier --write \"**/*.{ts,tsx}\"",
     "vitest": "vitest run",

@@ -5,7 +5,6 @@ import classes from './Pages.module.css';
 
 function LobbyPage() {
   const location = useLocation();
-  console.log(location);
   const players = location.state?.players || [];
   const yourId = location.state?.yourId || '';
 
