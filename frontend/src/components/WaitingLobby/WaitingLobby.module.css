@@ -20,7 +20,7 @@
 
 .cardMobile {
   height: 100%;
-  margin: var(--mantine-spacing-xs);
+  /* margin: var(--mantine-spacing-xs); */
   background-color: var(--mantine-color-body);
   justify-content: space-around;
   animation: appear 0.3s;

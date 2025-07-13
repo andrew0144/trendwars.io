@@ -239,8 +239,6 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
       </Flex>
 
       <Card
-        withBorder
-        radius="md"
         className={classes.cardMobile}
         display={currentTab !== 'main' ? 'none' : 'flex'}
         hiddenFrom="xs"
@@ -307,8 +305,6 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         )}
       </Card>
       <Card
-        withBorder
-        radius="md"
         className={classes.cardMobile}
         display={currentTab !== 'players' ? 'none' : 'flex'}
         hiddenFrom="xs"
@@ -324,8 +320,6 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         </ScrollArea.Autosize>
       </Card>
       <Card
-        withBorder
-        radius="md"
         className={classes.cardMobile}
         display={currentTab !== 'chat' ? 'none' : 'flex'}
         hiddenFrom="xs"
