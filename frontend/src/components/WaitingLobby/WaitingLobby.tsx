@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { IconCircleCheckFilled, IconCircleDashedCheck } from '@tabler/icons-react';
 import Avatar from 'boring-avatars';
-import { Card, Divider, Flex, Group, ScrollArea, Stack, Text, Title } from '@mantine/core';
+import { Card, Flex, Group, ScrollArea, Text, Title } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
 import { AvatarVariants, Player } from '@/common/Player';
@@ -195,7 +194,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             </Title>
             <Text ta="center" inherit component="span">
               {state.hasGameStarted ? (
-                <Group gap={'md'} justify="center" align="center" my={'lg'}>
+                <Group gap='md' justify="center" align="center" my='lg'>
                   <Avatar size={50} name={you.username} variant={you.variant ?? 'beam'} />
                   <Text fz="lg" fw={500}>
                     {you.username}:
@@ -317,19 +316,17 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         </Title>
         <Text ta="center" inherit component="span">
           {state.hasGameStarted ? (
-            <Group gap={'md'} justify="center" align="center" my='lg'>
+            <Group gap='md' justify="center" align="center" my="lg">
               <Avatar size={50} name={you.username} variant={you.variant ?? 'beam'} />
-                <Text fz="md" fw={500}>
-                  {you.username}:
-                </Text>
-                <Text fz="md" fw={500}>
-                    {you.score} points{you.score > 0 && ` (+${you.pointInc})`}
-                  </Text>
-                  {state.hasGameStarted && Number(state.round) > 1 && (
-                    <Text c="dimmed">
-                      Rank #{youRank + 1}
-                    </Text>
-                  )}
+              <Text fz="md" fw={500}>
+                {you.username}:
+              </Text>
+              <Text fz="md" fw={500}>
+                {you.score} points{you.score > 0 && ` (+${you.pointInc})`}
+              </Text>
+              {state.hasGameStarted && Number(state.round) > 1 && (
+                <Text c="dimmed">Rank #{youRank + 1}</Text>
+              )}
             </Group>
           ) : (
             statusText
