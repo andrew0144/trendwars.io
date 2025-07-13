@@ -1,14 +1,19 @@
 .appContainer {
   max-width: 1200px;
   margin: 0 auto;
-  height: 100dvh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
-/* @supports (height: 100dvh) {
+@supports (height: 100dvh) {
   .appContainer {
+    max-width: 1200px;
+    margin: 0 auto;
     height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
-} */
+}
