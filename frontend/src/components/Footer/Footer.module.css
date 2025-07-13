@@ -21,7 +21,3 @@
     display: block;
   }
 }
-
-.active {
-  transition: 0.3s ease-out; 
-}

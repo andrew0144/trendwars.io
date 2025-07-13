@@ -20,7 +20,6 @@ export function Footer({
             variant={currentTab === 'main' ? 'light' : 'subtle'}
             radius="xl"
             onClick={() => onIconClick('main')}
-            className={currentTab === 'main' ? classes.active : ''}
           >
             {hasGameStarted ? (
               <IconDeviceGamepad size={25} stroke={1.5} />
@@ -33,7 +32,6 @@ export function Footer({
             variant={currentTab === 'players' ? 'light' : 'subtle'}
             radius="xl"
             onClick={() => onIconClick('players')}
-            className={currentTab === 'players' ? classes.active : ''}
           >
             <IconList size={25} stroke={1.5} />
           </ActionIcon>
@@ -42,7 +40,6 @@ export function Footer({
             variant={currentTab === 'chat' ? 'light' : 'subtle'}
             radius="xl"
             onClick={() => onIconClick('chat')}
-            className={currentTab === 'chat' ? classes.active : ''}
           >
             <IconMessageCircle size={25} stroke={1.5} />
           </ActionIcon>

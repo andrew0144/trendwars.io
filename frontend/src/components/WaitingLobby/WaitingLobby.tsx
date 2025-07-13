@@ -193,7 +193,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               )}
             </Title>
             <Text ta="center" inherit component="span">
-              {state.hasGameStarted ? (
+              {state.hasGameStarted && !showResults? (
                 <Group gap='md' justify="center" align="center" my='lg'>
                   <Avatar size={50} name={you.username} variant={you.variant ?? 'beam'} />
                   <Text fz="lg" fw={500}>
@@ -209,7 +209,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
                   )}
                 </Group>
               ) : (
-                statusText
+                !showResults && statusText
               )}
             </Text>
             {state.hasGameStarted ? (
@@ -270,7 +270,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         <Title ta="center" size="lg" maw="100%" mx="auto" my="0" className={classes.title}>
           {state.hasGameStarted ? (
             showResults ? (
-              <Group justify="center" align="center" mb={10}>
+              <Group justify="center" align="center" mb={10} fz={32}>
                 <span>Explore</span>
                 <Text
                   inherit
@@ -315,7 +315,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           )}
         </Title>
         <Text ta="center" inherit component="span">
-          {state.hasGameStarted ? (
+          {state.hasGameStarted && !showResults? (
             <Group gap='md' justify="center" align="center" my="lg">
               <Avatar size={50} name={you.username} variant={you.variant ?? 'beam'} />
               <Text fz="md" fw={500}>
@@ -329,7 +329,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               )}
             </Group>
           ) : (
-            statusText
+            !showResults && statusText
           )}
         </Text>
         {state.hasGameStarted ? (
