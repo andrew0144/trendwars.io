@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Card, Flex, Group, ScrollArea, Text, Title } from '@mantine/core';
+import { IconCircleCheckFilled, IconCircleDashedCheck } from '@tabler/icons-react';
+import Avatar from 'boring-avatars';
+import { Card, Divider, Flex, Group, ScrollArea, Stack, Text, Title } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
 import { AvatarVariants, Player } from '@/common/Player';
@@ -53,6 +55,10 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
   const [statusText, setStatusText] = useState('Waiting for players to join...');
   const [currentTab, setCurrentTab] = useState('main');
   const lobbyId = window.location.pathname.split('/').pop() || '';
+
+  const you = state.players.find((p) => p.id === yourId)!;
+
+  const youRank = state.players.findIndex((p) => p.id === yourId);
 
   function handleIconClick(tab: string) {
     setCurrentTab(tab);
@@ -158,7 +164,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
                     </Text>
                   </Group>
                 ) : (
-                  <Group justify="center" align="center" mb={10}>
+                  <Group justify="center" align="center">
                     <span>
                       Round {state.round === 'N/A' ? 1 : state.round} of {state.maxTurns}:{' '}
                     </span>
@@ -188,7 +194,24 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               )}
             </Title>
             <Text ta="center" inherit component="span">
-              {state.hasGameStarted ? '' : statusText}
+              {state.hasGameStarted ? (
+                <Group gap={'md'} justify="center" align="center" my={'lg'}>
+                  <Avatar size={50} name={you.username} variant={you.variant ?? 'beam'} />
+                  <Text fz="lg" fw={500}>
+                    {you.username}:
+                  </Text>
+                  <Text fz="lg" fw={500}>
+                    {you.score} points{you.score > 0 && ` (+${you.pointInc})`}
+                  </Text>
+                  {state.hasGameStarted && Number(state.round) > 1 && (
+                    <Text fz="lg" c="dimmed">
+                      Rank #{youRank + 1}
+                    </Text>
+                  )}
+                </Group>
+              ) : (
+                statusText
+              )}
             </Text>
             {state.hasGameStarted ? (
               showResults ? (
@@ -241,8 +264,9 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
       <Card
         className={classes.cardMobile}
         display={currentTab !== 'main' ? 'none' : 'flex'}
+        style={state.hasGameStarted ? { justifyContent: 'center' } : {}}
         hiddenFrom="xs"
-        p='sm'
+        p="sm"
       >
         <Title ta="center" size="lg" maw="100%" mx="auto" my="0" className={classes.title}>
           {state.hasGameStarted ? (
@@ -259,19 +283,21 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
                 </Text>
               </Group>
             ) : (
-              <Group justify="center" align="center" mb={10}>
-                <span>
-                  Round {state.round === 'N/A' ? 1 : state.round} of {state.maxTurns}:{' '}
-                </span>
-                <Text
-                  inherit
-                  variant="gradient"
-                  component="span"
-                  gradient={{ from: 'pink', to: 'yellow' }}
-                >
-                  Fight!
-                </Text>
-              </Group>
+              <>
+                <Group justify="center" align="center" fz={32}>
+                  <span>
+                    Round {state.round === 'N/A' ? 1 : state.round} of {state.maxTurns}:{' '}
+                  </span>
+                  <Text
+                    inherit
+                    variant="gradient"
+                    component="span"
+                    gradient={{ from: 'pink', to: 'yellow' }}
+                  >
+                    Fight!
+                  </Text>
+                </Group>
+              </>
             )
           ) : (
             <Group justify="center" align="center">
@@ -281,6 +307,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
                 variant="gradient"
                 component="span"
                 gradient={{ from: 'pink', to: 'yellow' }}
+                pr={2}
               >
                 {lobbyId}
               </Text>
@@ -289,7 +316,24 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           )}
         </Title>
         <Text ta="center" inherit component="span">
-          {state.hasGameStarted ? '' : statusText}
+          {state.hasGameStarted ? (
+            <Group gap={'md'} justify="center" align="center" my='lg'>
+              <Avatar size={50} name={you.username} variant={you.variant ?? 'beam'} />
+                <Text fz="md" fw={500}>
+                  {you.username}:
+                </Text>
+                <Text fz="md" fw={500}>
+                    {you.score} points{you.score > 0 && ` (+${you.pointInc})`}
+                  </Text>
+                  {state.hasGameStarted && Number(state.round) > 1 && (
+                    <Text c="dimmed">
+                      Rank #{youRank + 1}
+                    </Text>
+                  )}
+            </Group>
+          ) : (
+            statusText
+          )}
         </Text>
         {state.hasGameStarted ? (
           showResults ? (
@@ -309,7 +353,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         className={classes.cardMobile}
         display={currentTab !== 'players' ? 'none' : 'flex'}
         hiddenFrom="xs"
-        p='sm'
+        p="sm"
       >
         <ScrollArea.Autosize h="100%">
           <PlayersStack
@@ -325,7 +369,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         className={classes.cardMobile}
         display={currentTab !== 'chat' ? 'none' : 'flex'}
         hiddenFrom="xs"
-        p='sm'
+        p="sm"
       >
         <Chat />
       </Card>

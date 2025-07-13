@@ -223,7 +223,6 @@ export function Welcome() {
           </Grid.Col>
         </Grid>
       </Card>
-      <Space h="xl" />
 
       <Transition
         mounted={showAlert}
@@ -247,6 +246,7 @@ export function Welcome() {
           </Alert>
         )}
       </Transition>
+      <Space h="xl" />
     </Container>
   );
 }

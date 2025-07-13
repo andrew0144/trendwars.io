@@ -2,7 +2,7 @@
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   font-size: rem(50px);
   font-weight: 900;
-  letter-spacing: rem(-2px);
+  letter-spacing: rem(-1px);
 
   @media (max-width: 528px) {
     font-size: rem(30px);
@@ -20,7 +20,7 @@
 
 .cardMobile {
   height: 100%;
-  /* margin: var(--mantine-spacing-xs); */
+  overflow-y: scroll;
   background-color: var(--mantine-color-body);
   justify-content: space-around;
   animation: appear 0.3s;
