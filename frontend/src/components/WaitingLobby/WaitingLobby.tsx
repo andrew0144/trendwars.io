@@ -242,6 +242,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         className={classes.cardMobile}
         display={currentTab !== 'main' ? 'none' : 'flex'}
         hiddenFrom="xs"
+        p={'sm'}
       >
         <Title ta="center" size="lg" maw="100%" mx="auto" my="0" className={classes.title}>
           {state.hasGameStarted ? (
@@ -273,7 +274,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               </Group>
             )
           ) : (
-            <Group justify="center" align="center" mb={10}>
+            <Group justify="center" align="center">
               <span>Lobby ID: </span>
               <Text
                 inherit
@@ -308,6 +309,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         className={classes.cardMobile}
         display={currentTab !== 'players' ? 'none' : 'flex'}
         hiddenFrom="xs"
+        p={'sm'}
       >
         <ScrollArea.Autosize h="100%">
           <PlayersStack
@@ -323,6 +325,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         className={classes.cardMobile}
         display={currentTab !== 'chat' ? 'none' : 'flex'}
         hiddenFrom="xs"
+        p={'sm'}
       >
         <Chat />
       </Card>

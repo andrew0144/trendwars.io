@@ -17,6 +17,7 @@ import {
 } from '@/common/Message/MessageUtils';
 import { Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
+import classes from './LobbyForm.module.css';
 
 function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
   const [settings, setSettings] = useState({
@@ -76,7 +77,7 @@ function LobbyForm({ players, yourId }: { players: Player[]; yourId: number }) {
           style={isHost ? {} : { cursor: 'not-allowed' }}
           p="md"
         >
-          <Stack gap="md">
+          <Stack classNames={{ root: classes.formStack }}>
             <Group grow justify="center" align="stretch" visibleFrom="xs">
               <Text>Number of Rounds</Text>
               <NumberInput

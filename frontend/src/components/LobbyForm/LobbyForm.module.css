@@ -1,0 +1,15 @@
+.formStack {
+  gap: var(--mantine-spacing-md);
+}
+
+@media (max-height: 630px) {
+  .formStack {
+    gap: var(--mantine-spacing-sm);
+  }
+}
+
+@media (max-height: 605px) {
+  .formStack {
+    gap: var(--mantine-spacing-xs);
+  }
+}
