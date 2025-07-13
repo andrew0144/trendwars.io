@@ -58,9 +58,11 @@ function Results({
               </Table.Td>
               {sortedPlayers.map((player) => (
                 <Table.Td key={player.id}>
-                  {round.submissions[player.id]
-                    ? <b>{round.submissions[player.id]}</b>
-                    : 'No word submitted'}
+                  {round.submissions[player.id] ? (
+                    <b>{round.submissions[player.id]}</b>
+                  ) : (
+                    'No word submitted'
+                  )}
                 </Table.Td>
               ))}
               <Table.Td>

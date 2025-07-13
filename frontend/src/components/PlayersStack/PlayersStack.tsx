@@ -50,11 +50,7 @@ export function PlayersStack({
           <Group gap="sm">
             <Stack justify="center" align="center" gap={0}>
               {player.host && <IconCrown size={16} stroke={1.5} />}
-              <Avatar
-                size={37}
-                name={player.username}
-                variant={player.variant ?? 'beam'}
-              />
+              <Avatar size={37} name={player.username} variant={player.variant ?? 'beam'} />
             </Stack>
             <Stack justify="center" gap={0} mt={player.host ? '16px' : '0'}>
               <Text fz="sm" fw={500}>

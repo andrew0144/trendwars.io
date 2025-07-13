@@ -135,7 +135,14 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
     <>
       <Flex direction="column" w="100%" h="100%" px="lg" visibleFrom="xs">
         <Group grow justify="center" align="stretch">
-          <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="xs" className={classes.mainCard}>
+          <Card
+            withBorder
+            radius="md"
+            bg="var(--mantine-color-body)"
+            mx="auto"
+            mt="xs"
+            className={classes.mainCard}
+          >
             <Title ta="center" size="xl" maw={650} mx="auto" my="0" className={classes.title}>
               {state.hasGameStarted ? (
                 showResults ? (
@@ -207,13 +214,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           gap="xs"
           className={classes.bottomGroup}
         >
-          <Card
-            withBorder
-            radius="md"
-            bg="var(--mantine-color-body)"
-            mx="auto"
-            mih={350}
-          >
+          <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mih={350}>
             <ScrollArea.Autosize h="100%">
               <PlayersStack
                 players={state.players}
@@ -224,7 +225,14 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               />
             </ScrollArea.Autosize>
           </Card>
-          <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mih={350} className={classes.chatCard}>
+          <Card
+            withBorder
+            radius="md"
+            bg="var(--mantine-color-body)"
+            mx="auto"
+            mih={350}
+            className={classes.chatCard}
+          >
             <Chat />
           </Card>
         </Group>
@@ -237,7 +245,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         display={currentTab !== 'main' ? 'none' : 'flex'}
         hiddenFrom="xs"
       >
-        <Title ta="center" size="lg" maw='100%' mx="auto" my="0" className={classes.title}>
+        <Title ta="center" size="lg" maw="100%" mx="auto" my="0" className={classes.title}>
           {state.hasGameStarted ? (
             showResults ? (
               <Group justify="center" align="center" mb={10}>
