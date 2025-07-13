@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Card, Flex, Group, ScrollArea, Text, Title } from '@mantine/core';
+import { Box, Card, Flex, Group, ScrollArea, Text, Title } from '@mantine/core';
 import Message from '@/common/Message/Message';
 import MessageType from '@/common/Message/MessageType';
-import { Player } from '@/common/Player';
+import { AvatarVariants, Player } from '@/common/Player';
 import { ws } from '@/common/socketConfig';
 import ButtonCopy from '../ButtonCopy/ButtonCopy';
-import Chat from '../Chat/Chat';
+import Chat, { ChatMessage } from '../Chat/Chat';
+import { Footer } from '../Footer/Footer';
 import Game from '../Game/Game';
 import LobbyForm from '../LobbyForm/LobbyForm';
 import { PlayersStack } from '../PlayersStack/PlayersStack';
@@ -20,7 +21,7 @@ type WaitingLobbyState = {
   firstStartingWord: string;
   results: string;
   round: number | 'N/A';
-  messages: string[];
+  messages: ChatMessage[];
   maxTurns: number;
   startingWord: string;
   gameHistory: any[]; // Adjust type as needed
@@ -36,7 +37,13 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
     firstStartingWord: 'N/A',
     results: '',
     round: 1,
-    messages: [],
+    messages: [
+      {
+        username: 'System',
+        variant: AvatarVariants.SUNSET,
+        text: 'Welcome to the chat! Type your message below.',
+      },
+    ],
     maxTurns: 5,
     startingWord: 'N/A',
     gameHistory: [],
@@ -44,7 +51,12 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
   });
   const [showResults, setShowResults] = useState(false);
   const [statusText, setStatusText] = useState('Waiting for players to join...');
+  const [currentTab, setCurrentTab] = useState('main');
   const lobbyId = window.location.pathname.split('/').pop() || '';
+
+  function handleIconClick(tab: string) {
+    setCurrentTab(tab);
+  }
 
   function updateStatusText(players: Player[]) {
     if (players.length < 2) {
@@ -67,11 +79,11 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
       switch (message.msgType) {
         case 'CHAT':
           if (message.msgData.text === '') {
-            return; // Ignore empty messages
+            return;
           }
           setState((prevState) => ({
             ...prevState,
-            messages: [...prevState.messages, message.msgData.text],
+            messages: [...prevState.messages, message.msgData as ChatMessage],
           }));
           break;
         case 'GAME_STARTED':
@@ -122,104 +134,190 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
   }, [showResults]);
 
   return (
-    <Flex direction="column" w='100%' h="100%" px={{ base: 'xs', xs: 'lg' }}>
-      <Group grow justify="center" align="stretch">
-        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="xs" mah={500}>
-          <Title ta="center" size="xl" maw={650} mx="auto" my="0" className={classes.title}>
-            {state.hasGameStarted ? (
-              showResults ? (
-                <Group justify="center" align="center" mb={10}>
-                  <span>Explore</span>
-                  <Text
-                    inherit
-                    variant="gradient"
-                    component="span"
-                    gradient={{ from: 'pink', to: 'yellow' }}
-                  >
-                    Results
-                  </Text>
-                </Group>
+    <>
+      <Flex direction="column" w="100%" h="100%" px="lg" visibleFrom="xs">
+        <Group grow justify="center" align="stretch">
+          <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mt="xs" mah={450}>
+            <Title ta="center" size="xl" maw={650} mx="auto" my="0" className={classes.title}>
+              {state.hasGameStarted ? (
+                showResults ? (
+                  <Group justify="center" align="center" mb={10}>
+                    <span>Explore</span>
+                    <Text
+                      inherit
+                      variant="gradient"
+                      component="span"
+                      gradient={{ from: 'pink', to: 'yellow' }}
+                    >
+                      Results
+                    </Text>
+                  </Group>
+                ) : (
+                  <Group justify="center" align="center" mb={10}>
+                    <span>
+                      Round {state.round === 'N/A' ? 1 : state.round} of {state.maxTurns}:{' '}
+                    </span>
+                    <Text
+                      inherit
+                      variant="gradient"
+                      component="span"
+                      gradient={{ from: 'pink', to: 'yellow' }}
+                    >
+                      Fight!
+                    </Text>
+                  </Group>
+                )
               ) : (
                 <Group justify="center" align="center" mb={10}>
-                  <span>
-                    Round {state.round === 'N/A' ? 1 : state.round} of {state.maxTurns}:{' '}
-                  </span>
+                  <span>Lobby ID: </span>
                   <Text
                     inherit
                     variant="gradient"
                     component="span"
                     gradient={{ from: 'pink', to: 'yellow' }}
                   >
-                    Fight!
+                    {lobbyId}
                   </Text>
+                  <ButtonCopy lobbyId={lobbyId} />
                 </Group>
+              )}
+            </Title>
+            <Text ta="center" inherit component="span">
+              {state.hasGameStarted ? '' : statusText}
+            </Text>
+            {state.hasGameStarted ? (
+              showResults ? (
+                <Results
+                  gameHistory={state.gameHistory}
+                  players={state.resultsPlayers}
+                  yourId={yourId}
+                />
+              ) : (
+                <Game firstWord={state.startingWord} />
               )
             ) : (
-              <Group justify="center" align="center" mb={10}>
-                <span>Lobby ID: </span>
-                <Text
-                  inherit
-                  variant="gradient"
-                  component="span"
-                  gradient={{ from: 'pink', to: 'yellow' }}
-                >
-                  {lobbyId}
-                </Text>
-                <ButtonCopy lobbyId={lobbyId} />
-              </Group>
+              <LobbyForm players={state.players} yourId={yourId} />
             )}
-          </Title>
-          <Text ta="center" inherit component="span">
-            {state.hasGameStarted ? '' : statusText}
-          </Text>
-          {state.hasGameStarted ? (
-            showResults ? (
-              <Results
-                gameHistory={state.gameHistory}
-                players={state.resultsPlayers}
-                yourId={yourId}
-              />
-            ) : (
-              <Game firstWord={state.startingWord} />
-            )
-          ) : (
-            <LobbyForm players={state.players} yourId={yourId} />
-          )}
-        </Card>
-      </Group>
-      <Group
-        grow
-        justify="center"
-        align="stretch"
-        mt="xs"
-        mb="xs"
-        gap="xs"
-        className={classes.bottomGroup}
-      >
-        <Card
-          withBorder
-          radius="md"
-          bg="var(--mantine-color-body)"
-          mx="auto"
-          mah={500}
-          h='100%'
-          mih={250}
+          </Card>
+        </Group>
+        <Group
+          grow
+          justify="center"
+          align="stretch"
+          mt="xs"
+          mb="xs"
+          gap="xs"
+          className={classes.bottomGroup}
         >
-          <ScrollArea.Autosize h='100%'>
-            <PlayersStack
-              players={state.players}
-              yourId={yourId}
-              hasGameStarted={state.hasGameStarted}
-              round={state.round !== 'N/A' ? state.round : 1}
-              hasGameEnded={showResults}
-            />
-          </ScrollArea.Autosize>
-        </Card>
-        <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={500} mih={250}>
-          <Chat />
-        </Card>
-      </Group>
-    </Flex>
+          <Card
+            withBorder
+            radius="md"
+            bg="var(--mantine-color-body)"
+            mx="auto"
+            mah={500}
+            h="100%"
+            mih={250}
+          >
+            <ScrollArea.Autosize h="100%">
+              <PlayersStack
+                players={state.players}
+                yourId={yourId}
+                hasGameStarted={state.hasGameStarted}
+                round={state.round !== 'N/A' ? state.round : 1}
+                hasGameEnded={showResults}
+              />
+            </ScrollArea.Autosize>
+          </Card>
+          <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mah={500} mih={250}>
+            <Chat  />
+          </Card>
+        </Group>
+      </Flex>
+
+
+          <Card withBorder radius="md" className={classes.cardMobile} display={currentTab !== 'main' ? 'none' : 'flex'} hiddenFrom="xs">
+            <Title ta="center" size="lg" maw={'100%'} mx="auto" my="0" className={classes.title}>
+              {state.hasGameStarted ? (
+                showResults ? (
+                  <Group justify="center" align="center" mb={10}>
+                    <span>Explore</span>
+                    <Text
+                      inherit
+                      variant="gradient"
+                      component="span"
+                      gradient={{ from: 'pink', to: 'yellow' }}
+                    >
+                      Results
+                    </Text>
+                  </Group>
+                ) : (
+                  <Group justify="center" align="center" mb={10}>
+                    <span>
+                      Round {state.round === 'N/A' ? 1 : state.round} of {state.maxTurns}:{' '}
+                    </span>
+                    <Text
+                      inherit
+                      variant="gradient"
+                      component="span"
+                      gradient={{ from: 'pink', to: 'yellow' }}
+                    >
+                      Fight!
+                    </Text>
+                  </Group>
+                )
+              ) : (
+                <Group justify="center" align="center" mb={10}>
+                  <span>Lobby ID: </span>
+                  <Text
+                    inherit
+                    variant="gradient"
+                    component="span"
+                    gradient={{ from: 'pink', to: 'yellow' }}
+                  >
+                    {lobbyId}
+                  </Text>
+                  <ButtonCopy lobbyId={lobbyId} />
+                </Group>
+              )}
+            </Title>
+            <Text ta="center" inherit component="span">
+              {state.hasGameStarted ? '' : statusText}
+            </Text>
+            {state.hasGameStarted ? (
+              showResults ? (
+                <Results
+                  gameHistory={state.gameHistory}
+                  players={state.resultsPlayers}
+                  yourId={yourId}
+                />
+              ) : (
+                <Game firstWord={state.startingWord} />
+              )
+            ) : (
+              <LobbyForm players={state.players} yourId={yourId} />
+            )}
+          </Card>
+          <Card withBorder radius="md" className={classes.cardMobile} display={currentTab !== 'players' ? 'none' : 'flex'} hiddenFrom="xs">
+            <ScrollArea.Autosize h="100%">
+              <PlayersStack
+                players={state.players}
+                yourId={yourId}
+                hasGameStarted={state.hasGameStarted}
+                round={state.round !== 'N/A' ? state.round : 1}
+                hasGameEnded={showResults}
+              />
+            </ScrollArea.Autosize>
+          </Card>
+          <Card withBorder radius="md" className={classes.cardMobile} display={currentTab !== 'chat' ? 'none' : 'flex'} hiddenFrom="xs">
+            <Chat  />
+          </Card>
+
+      <Footer
+        hasGameStarted={state.hasGameStarted}
+        onIconClick={handleIconClick}
+        currentTab={currentTab}
+      />
+    </>
   );
 }
 

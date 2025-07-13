@@ -4,11 +4,34 @@
   font-weight: 900;
   letter-spacing: rem(-2px);
 
-  @media (max-width: $mantine-breakpoint-md) {
+  @media (max-width: 528px) {
     font-size: rem(30px);
+  }
+
+  @media (max-width: 375px) {
+    font-size: rem(26px);
   }
 }
 
 .bottomGroup {
   flex-grow: 1;
+}
+
+.cardMobile {
+  height: 100%;
+  margin: var(--mantine-spacing-xs);
+  background-color: var(--mantine-color-body);
+  justify-content: space-around;
+  animation: appear 0.3s;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

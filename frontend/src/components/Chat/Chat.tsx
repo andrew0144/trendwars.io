@@ -9,7 +9,7 @@ import { ws } from '@/common/socketConfig';
 import { InputWithButton } from '../InputWithButton/InputWithButton';
 import classes from './Chat.module.css';
 
-type ChatMessage = {
+export type ChatMessage = {
   username: string;
   variant: AvatarVariants;
   text: string;
