@@ -212,7 +212,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
             radius="md"
             bg="var(--mantine-color-body)"
             mx="auto"
-            mih={250}
+            mih={350}
           >
             <ScrollArea.Autosize h="100%">
               <PlayersStack
@@ -224,7 +224,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               />
             </ScrollArea.Autosize>
           </Card>
-          <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mih={250} className={classes.chatCard}>
+          <Card withBorder radius="md" bg="var(--mantine-color-body)" mx="auto" mih={350} className={classes.chatCard}>
             <Chat />
           </Card>
         </Group>

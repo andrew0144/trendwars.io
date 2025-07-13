@@ -25,7 +25,7 @@ function Results({
 
   return (
     <ScrollArea scrollbars="y" offsetScrollbars>
-      <Table verticalSpacing="sm">
+      <Table verticalSpacing="md">
         <Table.Thead>
           <Table.Tr>
             <Table.Th />
@@ -54,12 +54,12 @@ function Results({
           {gameHistory.map((round, index) => (
             <Table.Tr key={index}>
               <Table.Td>
-                Round {index + 1}: "{round.curWord}"
+                Round {index + 1}: <b>{round.curWord}</b>
               </Table.Td>
               {sortedPlayers.map((player) => (
                 <Table.Td key={player.id}>
                   {round.submissions[player.id]
-                    ? round.submissions[player.id]
+                    ? <b>{round.submissions[player.id]}</b>
                     : 'No word submitted'}
                 </Table.Td>
               ))}
