@@ -193,8 +193,8 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               )}
             </Title>
             <Text ta="center" inherit component="span">
-              {state.hasGameStarted && !showResults? (
-                <Group gap='md' justify="center" align="center" my='lg'>
+              {state.hasGameStarted && !showResults ? (
+                <Group gap="md" justify="center" align="center" my="lg">
                   <Avatar size={50} name={you.username} variant={you.variant ?? 'beam'} />
                   <Text fz="lg" fw={500}>
                     {you.username}:
@@ -315,8 +315,8 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
           )}
         </Title>
         <Text ta="center" inherit component="span">
-          {state.hasGameStarted && !showResults? (
-            <Group gap='md' justify="center" align="center" my="lg">
+          {state.hasGameStarted && !showResults ? (
+            <Group gap="md" justify="center" align="center" my="lg">
               <Avatar size={50} name={you.username} variant={you.variant ?? 'beam'} />
               <Text fz="md" fw={500}>
                 {you.username}:
