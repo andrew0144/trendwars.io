@@ -1,5 +1,5 @@
 import Avatar from 'boring-avatars';
-import { Anchor, Group, ScrollArea, Stack, Table, Text } from '@mantine/core';
+import { Anchor, Card, Divider, Group, ScrollArea, Stack, Table, Text } from '@mantine/core';
 import { Player } from '@/common/Player';
 
 function Results({
@@ -24,8 +24,8 @@ function Results({
   }
 
   return (
-    <ScrollArea scrollbars="y" offsetScrollbars>
-      <Table verticalSpacing="md">
+    <ScrollArea scrollbars="y">
+      <Table verticalSpacing="md" visibleFrom="xs">
         <Table.Thead>
           <Table.Tr>
             <Table.Th />
@@ -74,6 +74,61 @@ function Results({
           ))}
         </Table.Tbody>
       </Table>
+      <Stack hiddenFrom="xs" justify="center" align="center">
+        {gameHistory.map((round, index) => (
+          <Card
+            withBorder
+            radius="md"
+            bg="var(--mantine-color-body)"
+            w='100%'
+            mx="auto"
+            key={index}
+          >
+            <Card.Section>
+              <Text fz="lg" fw={500} ta="center" mt="md" mb="xs">
+                Round {index + 1}: <b>{round.curWord}</b>
+              </Text>
+            </Card.Section>
+            <Card.Section>
+              <Stack justify="center" gap="sm" p="md">
+                {sortedPlayers.map((player) => (
+                  <>
+                    <Group gap="sm" justify="space-between" mx={15}>
+                      <Group gap="sm">
+                        <Avatar
+                          size={25}
+                          name={player.username}
+                          variant={player.variant ?? 'beam'}
+                        />
+                        <Text fz="sm" fw={500}>
+                          {player.username}
+                          {player.id === yourId && ' (You)'}
+                        </Text>
+                      </Group>
+                      <Text key={player.id}>
+                        {round.submissions[player.id] ? (
+                          <b>{round.submissions[player.id]}</b>
+                        ) : (
+                          'No word submitted'
+                        )}
+                      </Text>
+                    </Group>
+                    <Divider />
+                  </>
+                ))}
+                <Anchor
+                  href={getTrendsLink(round)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ta="center"
+                >
+                  Explore on Google Trends
+                </Anchor>
+              </Stack>
+            </Card.Section>
+          </Card>
+        ))}
+      </Stack>
     </ScrollArea>
   );
 }
