@@ -270,7 +270,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
         <Title ta="center" size="lg" maw="100%" mx="auto" my="0" className={classes.title}>
           {state.hasGameStarted ? (
             showResults ? (
-              <Group justify="center" align="center" mb={10} fz={32}>
+              <Group justify="center" align="center" mb={10} fz={{ base: 30, xxs: 32 }}>
                 <span>Explore</span>
                 <Text
                   inherit
@@ -283,7 +283,7 @@ function WaitingLobby({ players, yourId }: { players: Player[]; yourId: number }
               </Group>
             ) : (
               <>
-                <Group justify="center" align="center" fz={32}>
+                <Group justify="center" align="center" fz={{ base: 30, xxs: 32 }}>
                   <span>
                     Round {state.round === 'N/A' ? 1 : state.round} of {state.maxTurns}:{' '}
                   </span>
